@@ -10,7 +10,7 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--Books List View Controller-->
+        <!--Empty Data Set Source-->
         <scene sceneID="RwB-kv-zVW">
             <objects>
                 <viewController storyboardIdentifier="BooksListViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="rGT-np-7OK" customClass="BooksListViewController" customModule="GoogleBooksApp" customModuleProvider="target" sceneMemberID="viewController">
@@ -116,6 +116,7 @@
                                 <connections>
                                     <outlet property="dataSource" destination="rGT-np-7OK" id="Okz-fj-Arh"/>
                                     <outlet property="delegate" destination="rGT-np-7OK" id="uHs-NX-Ilo"/>
+                                    <outlet property="emptyDataSetSource" destination="rGT-np-7OK" id="MsV-24-1B0"/>
                                 </connections>
                             </tableView>
                         </subviews>
@@ -129,6 +130,7 @@
                         <viewLayoutGuide key="safeArea" id="OR5-3f-pbR"/>
                     </view>
                     <navigationItem key="navigationItem" id="uPu-7a-g4l">
+                        <barButtonItem key="backBarButtonItem" title=" " id="g2K-AF-Vv5"/>
                         <barButtonItem key="rightBarButtonItem" systemItem="bookmarks" id="olQ-9Z-Vsf">
                             <connections>
                                 <action selector="favoritesButtonTapped:" destination="rGT-np-7OK" id="NVM-Kp-KaR"/>

@@ -41,6 +41,8 @@ extension FavoriteBooksStorage: FavoriteBooksStorageType {
             favoriteBooksIds.append(id)
             defaults.set(favoriteBooksIds, forKey: Constant.favoriteBooksIdsKey)
             defaults.synchronize()
+            
+            NotificationCenter.default.post(name: Notification.Name.favoriteBookAdded, object: nil)
         }
     }
     
@@ -51,6 +53,8 @@ extension FavoriteBooksStorage: FavoriteBooksStorageType {
             favoriteBooksIds.remove(at: favoriteBooksIds.index(of: id)!)
             defaults.set(favoriteBooksIds, forKey: Constant.favoriteBooksIdsKey)
             defaults.synchronize()
+            
+            NotificationCenter.default.post(name: Notification.Name.favoriteBookRemoved, object: nil)
         }
     }
     

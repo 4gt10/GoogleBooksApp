@@ -19,12 +19,18 @@
 "authorization.tokenInvalid.error.message" = "Authorization token invalid";
 "authorization.tokenExpired.error.message" = "Authorization token is expired";
 
+// MARK: - Volume cell
+
+"volumeCell.previewButton.title" = "Preview";
+
 // MARK: - Books list
 
 "booksList.title" = "Google Books App";
 "booksList.searchBar.placeholder" = "Search for books...";
 "booksList.emptyState.title" = "Type something into search bar and press \"Search\"";
 
-// MARK: - Volume cell
+// MARK: - Favorite books list
 
-"volumeCell.previewButton.title" = "Preview";
+"favoriteBooksList.title" = "Favorites";
+"favoriteBooksList.emptyState.title" = "Add some books to favorites";
+"favoriteBooksList.deleteAction.title" = "Delete";

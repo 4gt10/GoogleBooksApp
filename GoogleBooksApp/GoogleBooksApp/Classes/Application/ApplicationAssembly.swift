@@ -23,7 +23,8 @@ final class ApplicationAssembly {
             FavoriteBooksServiceAssemblyContainer(),
             
             // Modules
-            BooksListAssemblyContainer()
+            BooksListAssemblyContainer(),
+            FavoriteBooksListAssemblyContainer()
         ])
     }
 }

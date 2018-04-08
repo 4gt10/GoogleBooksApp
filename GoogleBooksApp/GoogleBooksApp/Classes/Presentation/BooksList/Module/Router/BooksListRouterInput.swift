@@ -9,4 +9,5 @@ import Foundation
 
 protocol BooksListRouterInput: class, AlertRoutable, URLRoutable {
 
+    func openFavorites()
 }

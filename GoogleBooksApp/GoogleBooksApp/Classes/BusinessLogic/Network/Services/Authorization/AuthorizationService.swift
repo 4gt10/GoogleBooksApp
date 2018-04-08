@@ -33,8 +33,6 @@ protocol AuthorizationServiceType {
     
     func authorize(completion: ((Result<Void, AuthorizationError>) -> Void)?)
     func renewToken(completion: ((Result<Void, AuthorizationError>) -> Void)?)
-    func validateToken() -> Bool
-    func logout()
 }
 
 final class AuthorizationService {
@@ -114,7 +112,7 @@ extension AuthorizationService: AuthorizationServiceType {
     }
     
     func renewToken(completion: ((Result<Void, AuthorizationError>) -> Void)?) {
-        guard validateToken() else {
+        guard token != nil else {
             completion?(Result.failure(AuthorizationError.tokenInvalid))
             return
         }
@@ -143,13 +141,5 @@ extension AuthorizationService: AuthorizationServiceType {
                 completion?(Result.failure(AuthorizationError.unhandled(error: error)))
             }
         )
-    }
-    
-    func validateToken() -> Bool {
-        return token != nil
-    }
-    
-    func logout() {
-        keychainStorage?.remove(valueForKey: .oauthToken)
     }
 }

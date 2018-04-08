@@ -14,6 +14,9 @@ final class {{ module_info.name }}Presenter {
     weak var view: {{ module_info.name }}ViewInput! {
         didSet {
             // Configure view out
+            view.viewIsReady = { [weak self] in
+                self?.view.setupInitialState()
+            }
         }
     }
     var interactor: {{ module_info.name }}InteractorInput!

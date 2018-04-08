@@ -16,6 +16,7 @@ final class BooksListPresenter {
             // Configure view out
             view.viewIsReady = { [weak self] in
                 self?.view.setupInitialState()
+                self?.addNotificationObservers()
             }
             view.searchBooks = { [weak self] query in
                 self?.interactor.searchBooks(query: query) { [weak self] result in
@@ -23,17 +24,17 @@ final class BooksListPresenter {
                     switch result {
                     case .success(let volumes):
                         self.volumes = volumes
-                        self.view.update(withItems: volumes.map { VolumeViewModel(model: $0, isFavorite: self.interactor.isBookFavorite(bookId: $0.id)) })
+                        self.updateViewItems()
                     case .failure(let error):
                         self.router.showAlert(withMessage: error.localizedDescription)
                     }
                 }
             }
-            view.didSelectItem = { item in
+            view.itemSelected = { item in
                 
             }
-            view.favoritesTapped = {
-                
+            view.favoritesTapped = { [weak self] in
+                self?.router.openFavorites()
             }
             view.favoriteTapped = { [weak self] item, completion in
                 guard let `self` = self else { return }
@@ -41,7 +42,7 @@ final class BooksListPresenter {
                     completion()
                     switch result {
                     case .success(_):
-                        self.view.update(withItems: self.volumes.map { VolumeViewModel(model: $0, isFavorite: self.interactor.isBookFavorite(bookId: $0.id)) })
+                        self.updateViewItems()
                     case .failure(let error):
                         self.router.showAlert(withMessage: error.localizedDescription)
                     }
@@ -56,6 +57,31 @@ final class BooksListPresenter {
     var router: BooksListRouterInput!
     
     private var volumes: [Volume] = []
+    
+    deinit {
+        NotificationCenter.default.removeObserver(self)
+    }
+    
+    // MARK: - Notification observers
+    
+    @objc func favoriteBookRemoved(notification: Notification) {
+        updateViewItems()
+    }
+    
+    // MARK: - Private
+    
+    private func addNotificationObservers() {
+        NotificationCenter.default.addObserver(
+            self,
+            selector: #selector(favoriteBookRemoved(notification:)),
+            name: Notification.Name.favoriteBookRemoved,
+            object: nil
+        )
+    }
+    
+    private func updateViewItems() {
+        view.update(withItems: volumes.map { VolumeViewModel(model: $0, isFavorite: interactor.isBookFavorite(bookId: $0.id)) })
+    }
 }
 
 // MARK: - BooksListModuleInput
