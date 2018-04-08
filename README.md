@@ -25,3 +25,69 @@ This app supports iOS 10+.
 * English
 
 # Libraries
+
+## OAuthSwift
+
+Swift based OAuth library for iOS.
+
+MIT license. See the [LICENSE](https://github.com/OAuthSwift/OAuthSwift/blob/master/LICENSE).
+
+## R.swift.Library
+
+Get strong typed, autocompleted resources like images, fonts and segues in Swift projects.
+
+R.swift and R.swift.Library are created by Mathijs Kadijk and released under a [MIT License](https://github.com/mac-cain13/R.swift/blob/master/License).
+
+## KeychainSwift
+
+Helper functions for saving text in Keychain securely for iOS, OS X, tvOS and watchOS.
+
+MIT license. See the [LICENSE](https://github.com/evgenyneu/keychain-swift/blob/master/LICENSE).
+
+## Swinject
+
+Swinject is a lightweight dependency injection framework for Swift.
+
+MIT license. See the [LICENSE](https://github.com/Swinject/Swinject/blob/master/LICENSE.txt) file for details.
+
+## SwinjectStoryboard
+
+SwinjectStoryboard is an extension of Swinject to automatically inject dependency to view controllers instantiated by a storyboard.
+
+MIT license. See the [LICENSE](https://github.com/Swinject/SwinjectStoryboard/blob/master/LICENSE.txt) file for details.
+
+## LightRoute
+
+LightRoute is easy transition between VIPER modules, who implemented on pure Swift. We can transition between your modules very easy from couple lines of codes.
+
+MIT license. See the [LICENSE](https://github.com/SpectralDragon/LightRoute/blob/master/LICENSE.txt) file for details.
+
+## Moya
+
+Network abstraction layer that sufficiently encapsulates actually calling Alamofire directly.
+
+MIT license. See the [LICENSE](https://github.com/Moya/Moya/blob/master/License.md) file for details.
+
+## NVActivityIndicatorView
+
+NVActivityIndicatorView is a collection of awesome loading animations.
+
+MIT license. See the [LICENSE](https://github.com/ninjaprox/NVActivityIndicatorView/blob/master/LICENSE) file for details.
+
+## DataSources
+
+Type-safe data-driven CollectionView, TableView Framework.
+
+MIT license. See the [LICENSE](https://github.com/muukii/DataSources/blob/master/LICENSE) file for details.
+
+## Kingfisher
+
+Kingfisher is a lightweight, pure-Swift library for downloading and caching images from the web.
+
+MIT license. See the [LICENSE](https://github.com/ninjaprox/NVActivityIndicatorView/blob/master/LICENSE) file for details.
+
+## DZNEmptyDataSet
+
+A drop-in UITableView/UICollectionView superclass category for showing empty datasets whenever the view has no content to display.
+
+MIT license. See the [LICENSE](https://github.com/dzenbot/DZNEmptyDataSet/blob/master/LICENSE).

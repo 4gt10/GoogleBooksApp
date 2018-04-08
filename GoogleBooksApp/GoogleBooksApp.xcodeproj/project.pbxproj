@@ -124,7 +124,7 @@
 		923C61382078C3020026D1C7 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		923C613B2078C3020026D1C7 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		923C613D2078C3020026D1C7 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = Info.plist; path = ../Info.plist; sourceTree = "<group>"; };
-		923C61432078C3330026D1C7 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
+		923C61432078C3330026D1C7 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; name = README.md; path = ../../../README.md; sourceTree = "<group>"; };
 		925899332078F6D600CAB7CE /* OAuthAPIRequestSpecification.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OAuthAPIRequestSpecification.swift; sourceTree = "<group>"; };
 		925899372078F8B700CAB7CE /* KeychainStorage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KeychainStorage.swift; sourceTree = "<group>"; };
 		925899392078F96B00CAB7CE /* KeychainStorageAssemblyContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeychainStorageAssemblyContainer.swift; sourceTree = "<group>"; };
