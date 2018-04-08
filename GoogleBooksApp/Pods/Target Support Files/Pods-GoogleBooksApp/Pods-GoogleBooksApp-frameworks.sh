@@ -135,20 +135,7 @@ strip_invalid_archs() {
 
 if [[ "$CONFIGURATION" == "Debug" ]]; then
   install_framework "${BUILT_PRODUCTS_DIR}/Alamofire/Alamofire.framework"
-  install_framework "${BUILT_PRODUCTS_DIR}/DataSources/DataSources.framework"
-  install_framework "${BUILT_PRODUCTS_DIR}/KeychainSwift/KeychainSwift.framework"
-  install_framework "${BUILT_PRODUCTS_DIR}/Kingfisher/Kingfisher.framework"
-  install_framework "${BUILT_PRODUCTS_DIR}/LightRoute/LightRoute.framework"
-  install_framework "${BUILT_PRODUCTS_DIR}/Moya/Moya.framework"
-  install_framework "${BUILT_PRODUCTS_DIR}/NVActivityIndicatorView/NVActivityIndicatorView.framework"
-  install_framework "${BUILT_PRODUCTS_DIR}/OAuthSwift/OAuthSwift.framework"
-  install_framework "${BUILT_PRODUCTS_DIR}/R.swift.Library/Rswift.framework"
-  install_framework "${BUILT_PRODUCTS_DIR}/Result/Result.framework"
-  install_framework "${BUILT_PRODUCTS_DIR}/Swinject/Swinject.framework"
-  install_framework "${BUILT_PRODUCTS_DIR}/SwinjectStoryboard/SwinjectStoryboard.framework"
-fi
-if [[ "$CONFIGURATION" == "DebugDev" ]]; then
-  install_framework "${BUILT_PRODUCTS_DIR}/Alamofire/Alamofire.framework"
+  install_framework "${BUILT_PRODUCTS_DIR}/DZNEmptyDataSet/DZNEmptyDataSet.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/DataSources/DataSources.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/KeychainSwift/KeychainSwift.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/Kingfisher/Kingfisher.framework"
@@ -163,20 +150,7 @@ if [[ "$CONFIGURATION" == "DebugDev" ]]; then
 fi
 if [[ "$CONFIGURATION" == "Release" ]]; then
   install_framework "${BUILT_PRODUCTS_DIR}/Alamofire/Alamofire.framework"
-  install_framework "${BUILT_PRODUCTS_DIR}/DataSources/DataSources.framework"
-  install_framework "${BUILT_PRODUCTS_DIR}/KeychainSwift/KeychainSwift.framework"
-  install_framework "${BUILT_PRODUCTS_DIR}/Kingfisher/Kingfisher.framework"
-  install_framework "${BUILT_PRODUCTS_DIR}/LightRoute/LightRoute.framework"
-  install_framework "${BUILT_PRODUCTS_DIR}/Moya/Moya.framework"
-  install_framework "${BUILT_PRODUCTS_DIR}/NVActivityIndicatorView/NVActivityIndicatorView.framework"
-  install_framework "${BUILT_PRODUCTS_DIR}/OAuthSwift/OAuthSwift.framework"
-  install_framework "${BUILT_PRODUCTS_DIR}/R.swift.Library/Rswift.framework"
-  install_framework "${BUILT_PRODUCTS_DIR}/Result/Result.framework"
-  install_framework "${BUILT_PRODUCTS_DIR}/Swinject/Swinject.framework"
-  install_framework "${BUILT_PRODUCTS_DIR}/SwinjectStoryboard/SwinjectStoryboard.framework"
-fi
-if [[ "$CONFIGURATION" == "ReleaseDev" ]]; then
-  install_framework "${BUILT_PRODUCTS_DIR}/Alamofire/Alamofire.framework"
+  install_framework "${BUILT_PRODUCTS_DIR}/DZNEmptyDataSet/DZNEmptyDataSet.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/DataSources/DataSources.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/KeychainSwift/KeychainSwift.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/Kingfisher/Kingfisher.framework"

@@ -7,5 +7,11 @@
 
 protocol {{ module_info.name }}ViewInput: class {
 
+    // MARK: - View out
+
+    var viewIsReady: (() -> Void)? { get set }
+
+    // MARK: - View in
+
     func setupInitialState()
 }

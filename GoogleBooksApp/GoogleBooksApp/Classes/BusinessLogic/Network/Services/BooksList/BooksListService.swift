@@ -48,7 +48,7 @@ extension BooksListService: BooksListServiceType {
             case .success:
                 self?.requestSender.sendRequest(requestSpecification: BooksListAPIRequestSpecification.searchBooks(query: query)) { (result: Result<VolumesList, APIError>) in
                     switch result {
-                    case .success(let volumesList): completion(Result.success(volumesList.items))
+                    case .success(let volumesList): completion(Result.success(volumesList.items ?? []))
                     case .failure(let error): completion(Result.failure(BooksListServiceError.unhandled(error: error)))
                     }
                 }

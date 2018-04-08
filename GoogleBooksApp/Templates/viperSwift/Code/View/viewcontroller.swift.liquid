@@ -7,25 +7,30 @@
 
 import UIKit
 
-final class {{ module_info.name }}ViewController: UIViewController {
+final class {{ module_info.name }}ViewController: UIViewController, {{ module_info.name }}ViewInput {
 
-	// MARK: - Properties
+    // MARK: - View out
 
-	var output: {{ module_info.name }}ViewOutput!
+    var viewIsReady: (() -> Void)?
+
+    // MARK: - View in
+
+    func setupInitialState() {
+
+    }
+
+    // MARK: - Holder
+
+    private var holder = [Any?]()
+
+    func hold(_ item: Any?) {
+        holder.append(item)
+    }
 
 	// MARK: - Life cycle
 
 	override func viewDidLoad() {
 		super.viewDidLoad()
-		output.viewIsReady()
-	}
-}
-
-// MARK: - {{module_info.name}}ViewInput
-
-extension {{ module_info.name }}ViewController: {{module_info.name}}ViewInput {
-
-	func setupInitialState() {
-
+		viewIsReady?()
 	}
 }

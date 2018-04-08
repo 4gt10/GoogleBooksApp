@@ -18,7 +18,7 @@ enum FavoriteBooksAPIRequestSpecification {
 extension FavoriteBooksAPIRequestSpecification: OAuthAPIRequestSpecification {
     
     var baseURL: URL {
-        return URL(string: "\(AppConfiguration.APIURL)/mylibrary/bookshelves/0")!
+        return URL(string: "\(AppConfiguration.APIURL)mylibrary/bookshelves/0")!
     }
     
     var path: String {

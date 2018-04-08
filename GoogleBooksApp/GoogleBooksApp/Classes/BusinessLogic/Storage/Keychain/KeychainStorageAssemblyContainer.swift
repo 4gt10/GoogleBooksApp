@@ -7,7 +7,6 @@
 //
 
 import Swinject
-import Moya
 
 final class KeychainStorageAssemblyContainer: Assembly {
     

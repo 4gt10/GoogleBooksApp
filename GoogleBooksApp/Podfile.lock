@@ -3,6 +3,7 @@ PODS:
   - DataSources (0.6.0):
     - DataSources/Default (= 0.6.0)
   - DataSources/Default (0.6.0)
+  - DZNEmptyDataSet (1.8.1)
   - KeychainSwift (11.0.0)
   - Kingfisher (4.6.1)
   - LightRoute (2.1)
@@ -25,6 +26,7 @@ PODS:
 
 DEPENDENCIES:
   - DataSources (= 0.6.0)
+  - DZNEmptyDataSet (= 1.8.1)
   - KeychainSwift (= 11.0)
   - Kingfisher (= 4.6.1)
   - LightRoute (= 2.1)
@@ -38,6 +40,7 @@ DEPENDENCIES:
 SPEC CHECKSUMS:
   Alamofire: 68d7d521118d49c615a8d2214d87cdf525599d30
   DataSources: 96cf2d97a85072664e991d725beee56d25e9d69d
+  DZNEmptyDataSet: 9525833b9e68ac21c30253e1d3d7076cc828eaa7
   KeychainSwift: bea6bd9f98af7b8d7ca4aa79fe105c00fab532db
   Kingfisher: 1f9157d9c02b380cbd0b7cc890161195164eb634
   LightRoute: 4231755d8ae556323f2b4ae43c727d9018546b0c
@@ -50,6 +53,6 @@ SPEC CHECKSUMS:
   Swinject: afea49fd95f392b41171669f165842879c48fad6
   SwinjectStoryboard: 92e75763c3299cdf627bef98a5180dc894864336
 
-PODFILE CHECKSUM: edd39b0b910a44586c4487f91d69f7f6a1c5ab8a
+PODFILE CHECKSUM: 779172d29a71125eacf145307e19ec7b1dae40c7
 
 COCOAPODS: 1.4.0

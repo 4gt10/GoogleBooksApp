@@ -43,9 +43,24 @@ final class APIRequestSender: RequestSender {
             case let .success(response):
                 do {
                     completion(Result.success(try response.map(ResponseDataType.self)))
-                } catch _ {
+                } catch let error {
+                    debugPrint(error.localizedDescription)
                     completion(Result.failure(APIError.mappingError))
                 }
+            case let .failure(error):
+                completion(Result.failure(APIError.unhandled(error: error)))
+            }
+        }
+    }
+    
+    func sendRequest<T: APIRequestSpecification>(
+        requestSpecification: T,
+        completion: @escaping (Result<Void, APIError>) -> Void) {
+        guard let provider = provider else { return }
+        provider.request(MultiTarget(requestSpecification)) { result in
+            switch result {
+            case .success(_):
+                completion(Result.success(()))
             case let .failure(error):
                 completion(Result.failure(APIError.unhandled(error: error)))
             }

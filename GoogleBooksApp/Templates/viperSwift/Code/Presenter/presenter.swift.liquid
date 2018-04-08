@@ -11,24 +11,13 @@ final class {{ module_info.name }}Presenter {
 
     // MARK: - Properties
 
-    weak var view: {{ module_info.name }}ViewInput!
+    weak var view: {{ module_info.name }}ViewInput! {
+        didSet {
+            // Configure view out
+        }
+    }
     var interactor: {{ module_info.name }}InteractorInput!
     var router: {{ module_info.name }}RouterInput!
-}
-
-// MARK: - {{ module_info.name }}ViewOutput
-
-extension {{ module_info.name }}Presenter: {{ module_info.name }}ViewOutput {
-
-    func viewIsReady() {
-
-    }
-}
-
-// MARK: - {{ module_info.name }}InteractorOutput
-
-extension {{ module_info.name }}Presenter: {{ module_info.name }}InteractorOutput {
-
 }
 
 // MARK: - {{ module_info.name }}ModuleInput

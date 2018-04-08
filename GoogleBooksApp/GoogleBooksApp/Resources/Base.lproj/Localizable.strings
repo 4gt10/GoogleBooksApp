@@ -6,9 +6,25 @@
   Copyright © 2018 Artur Chernov. All rights reserved.
 */
 
+"tableName" = "Localizable";
+
+// MARK: - Common
+
+"common.ok" = "OK";
+
 // MARK: - Errors
 
 "api.mapping.error.message" = "API Response mapping error";
 
 "authorization.tokenInvalid.error.message" = "Authorization token invalid";
 "authorization.tokenExpired.error.message" = "Authorization token is expired";
+
+// MARK: - Books list
+
+"booksList.title" = "Google Books App";
+"booksList.searchBar.placeholder" = "Search for books...";
+"booksList.emptyState.title" = "Type something into search bar and press \"Search\"";
+
+// MARK: - Volume cell
+
+"volumeCell.previewButton.title" = "Preview";

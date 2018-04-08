@@ -25,8 +25,8 @@ extension FavoriteBooksServiceError: Error {
 protocol FavoriteBooksServiceType {
     
     func getFavoriteBooks(completion: @escaping (Result<[Volume], FavoriteBooksServiceError>) -> Void)
-    func addFavoriteBook(withId: String, completion: @escaping (Result<Bool, FavoriteBooksServiceError>) -> Void)
-    func removeFavoriteBook(withId: String, completion: @escaping (Result<Bool, FavoriteBooksServiceError>) -> Void)
+    func addFavoriteBook(withId: String, completion: @escaping (Result<Void, FavoriteBooksServiceError>) -> Void)
+    func removeFavoriteBook(withId: String, completion: @escaping (Result<Void, FavoriteBooksServiceError>) -> Void)
 }
 
 final class FavoriteBooksService {
@@ -50,7 +50,7 @@ extension FavoriteBooksService: FavoriteBooksServiceType {
             case .success:
                 self?.requestSender.sendRequest(requestSpecification: FavoriteBooksAPIRequestSpecification.favoriteBooksList) { (result: Result<VolumesList, APIError>) in
                     switch result {
-                    case .success(let volumesList): completion(Result.success(volumesList.items))
+                    case .success(let volumesList): completion(Result.success(volumesList.items ?? []))
                     case .failure(let error): completion(Result.failure(FavoriteBooksServiceError.unhandled(error: error)))
                     }
                 }
@@ -61,13 +61,13 @@ extension FavoriteBooksService: FavoriteBooksServiceType {
         
     }
     
-    func addFavoriteBook(withId id: String, completion: @escaping (Result<Bool, FavoriteBooksServiceError>) -> Void) {
+    func addFavoriteBook(withId id: String, completion: @escaping (Result<Void, FavoriteBooksServiceError>) -> Void) {
         authorizationService?.authorize { [weak self] result in
             switch result {
             case .success:
-                self?.requestSender.sendRequest(requestSpecification: FavoriteBooksAPIRequestSpecification.addFavoriteBook(id: id)) { (result: Result<Bool, APIError>) in
+                self?.requestSender.sendRequest(requestSpecification: FavoriteBooksAPIRequestSpecification.addFavoriteBook(id: id)) { (result: Result<Void, APIError>) in
                     switch result {
-                    case .success(_): completion(Result.success(true))
+                    case .success: completion(Result.success(()))
                     case .failure(let error): completion(Result.failure(FavoriteBooksServiceError.unhandled(error: error)))
                     }
                 }
@@ -77,13 +77,13 @@ extension FavoriteBooksService: FavoriteBooksServiceType {
         }
     }
     
-    func removeFavoriteBook(withId id: String, completion: @escaping (Result<Bool, FavoriteBooksServiceError>) -> Void) {
+    func removeFavoriteBook(withId id: String, completion: @escaping (Result<Void, FavoriteBooksServiceError>) -> Void) {
         authorizationService?.authorize { [weak self] result in
             switch result {
             case .success:
-                self?.requestSender.sendRequest(requestSpecification: FavoriteBooksAPIRequestSpecification.removeFavoriteBook(id: id)) { (result: Result<Bool, APIError>) in
+                self?.requestSender.sendRequest(requestSpecification: FavoriteBooksAPIRequestSpecification.removeFavoriteBook(id: id)) { (result: Result<Void, APIError>) in
                     switch result {
-                    case .success(_): completion(Result.success(true))
+                    case .success: completion(Result.success(()))
                     case .failure(let error): completion(Result.failure(FavoriteBooksServiceError.unhandled(error: error)))
                     }
                 }

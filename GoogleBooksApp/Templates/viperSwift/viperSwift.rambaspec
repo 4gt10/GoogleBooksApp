@@ -16,7 +16,6 @@ code_files:
 
 # View layer
 - {name: Module/View/ViewInput.swift,  path: Code/View/view_input.swift.liquid}
-- {name: Module/View/ViewOutput.swift, path: Code/View/view_output.swift.liquid}
 - {name: Module/View/ViewController.swift, path: Code/View/viewcontroller.swift.liquid}
 
 # Presenter layer
@@ -25,7 +24,6 @@ code_files:
 
 # Interactor layer
 - {name: Module/Interactor/InteractorInput.swift, path: Code/Interactor/interactor_input.swift.liquid}
-- {name: Module/Interactor/InteractorOutput.swift, path: Code/Interactor/interactor_output.swift.liquid}
 - {name: Module/Interactor/Interactor.swift, path: Code/Interactor/interactor.swift.liquid}
 
 # Router layer

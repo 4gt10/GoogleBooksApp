@@ -12,6 +12,7 @@ final class ApplicationAssembly {
         return Assembler([
             // Storage
             KeychainStorageAssemblyContainer(),
+            FavoriteBooksStorageAssemblyContainer(),
             
             // Network
             APIProviderAssembly(),

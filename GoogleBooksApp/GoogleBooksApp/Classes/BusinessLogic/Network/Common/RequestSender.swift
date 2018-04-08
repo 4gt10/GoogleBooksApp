@@ -10,4 +10,9 @@ protocol RequestSender {
         requestSpecification: T,
         completion: @escaping (Result<ResponseDataType, APIError>) -> Void
     )
+    
+    func sendRequest<T: APIRequestSpecification>(
+        requestSpecification: T,
+        completion: @escaping (Result<Void, APIError>) -> Void
+    )
 }

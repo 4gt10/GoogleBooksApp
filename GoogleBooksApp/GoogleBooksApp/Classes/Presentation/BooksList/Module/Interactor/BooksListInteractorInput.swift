@@ -10,5 +10,7 @@ import Result
 
 protocol BooksListInteractorInput: class {
 
-    func searchBooks(query: String, completion: @escaping (Result<[Volume], BooksListServiceError>) -> Void)
+    func searchBooks(query: String, completion: @escaping (Result<[Volume], BooksListBusinessError>) -> Void)
+    func manageFavoriteBook(withId id: String, completion: @escaping (Result<Void, BooksListBusinessError>) -> Void)
+    func isBookFavorite(bookId: String) -> Bool
 }
