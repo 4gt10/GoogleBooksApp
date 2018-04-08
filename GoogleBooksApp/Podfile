@@ -1,0 +1,17 @@
+source 'https://github.com/CocoaPods/Specs.git'
+platform :ios, '10.0'
+
+target 'GoogleBooksApp' do
+    use_frameworks!
+    inhibit_all_warnings!
+    pod 'OAuthSwift', '1.2.0'
+    pod 'KeychainSwift', '11.0'
+    pod 'R.swift', '4.0.0'
+    pod 'LightRoute', '2.1'
+    pod 'Swinject', '2.1.1'
+    pod 'SwinjectStoryboard', '1.1.2'
+    pod 'Moya', '10.0.2'
+    pod 'DataSources', '0.6.0'
+    pod 'Kingfisher', '4.6.1'
+    pod 'NVActivityIndicatorView', '4.1.1'
+end

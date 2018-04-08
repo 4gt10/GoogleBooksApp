@@ -1,0 +1,14 @@
+/* 
+  Localizable.strings
+  GoogleBooksApp
+
+  Created by Artur Chernov on 07/04/2018.
+  Copyright © 2018 Artur Chernov. All rights reserved.
+*/
+
+// MARK: - Errors
+
+"api.mapping.error.message" = "API Response mapping error";
+
+"authorization.tokenInvalid.error.message" = "Authorization token invalid";
+"authorization.tokenExpired.error.message" = "Authorization token is expired";

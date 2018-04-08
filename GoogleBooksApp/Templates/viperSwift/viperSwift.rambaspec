@@ -1,0 +1,57 @@
+# Template information section
+name: "viperSwift"
+summary: "ViperModule with use DI Swinject"
+author: "Vladislav Prusakov"
+version: "0.1.2"
+license: "MIT"
+
+# The declarations for code files
+
+code_files:
+# Assembly
+- {name: Module/Assembly/AssemblyContainer.swift, path: Code/Assembly/assemblycontainer.swift.liquid}
+
+# Storyboard
+- {name: Module/Storyboard/.storyboard,  path: Code/Storyboard/storyboard.storyboard.liquid}
+
+# View layer
+- {name: Module/View/ViewInput.swift,  path: Code/View/view_input.swift.liquid}
+- {name: Module/View/ViewOutput.swift, path: Code/View/view_output.swift.liquid}
+- {name: Module/View/ViewController.swift, path: Code/View/viewcontroller.swift.liquid}
+
+# Presenter layer
+- {name: Module/Presenter/ModuleInput.swift, path: Code/Presenter/module_input.swift.liquid}
+- {name: Module/Presenter/Presenter.swift, path: Code/Presenter/presenter.swift.liquid}
+
+# Interactor layer
+- {name: Module/Interactor/InteractorInput.swift, path: Code/Interactor/interactor_input.swift.liquid}
+- {name: Module/Interactor/InteractorOutput.swift, path: Code/Interactor/interactor_output.swift.liquid}
+- {name: Module/Interactor/Interactor.swift, path: Code/Interactor/interactor.swift.liquid}
+
+# Router layer
+- {name: Module/Router/RouterInput.swift, path: Code/Router/router_input.swift.liquid}
+- {name: Module/Router/Router.swift, path: Code/Router/router.swift.liquid}
+
+# The declarations for test files
+test_files:
+
+# Configurators tests
+- {name: Assembly/ContainerTests.swift, path: Tests/Configurator/configurator_tests.swift.liquid}
+
+# View tests
+- {name: View/ViewTests.swift, path: Tests/View/view_tests.swift.liquid}
+
+# Interactor tests
+- {name: Interactor/InteractorTests.swift, path: Tests/Interactor/interactor_tests.swift.liquid}
+
+# Presenter tests
+- {name: Presenter/PresenterTests.swift, path: Tests/Presenter/presenter_tests.swift.liquid}
+
+# Router tests
+- {name: Router/RouterTests.swift, path: Tests/Router/router_tests.swift.liquid}
+
+# Template dependencies
+dependencies:
+- Swinject
+- SwinjectStoryboard
+- LightRoute
