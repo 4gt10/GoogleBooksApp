@@ -30,19 +30,19 @@ This app supports iOS 10+.
 
 Swift based OAuth library for iOS.
 
-MIT license. See the [LICENSE](https://github.com/OAuthSwift/OAuthSwift/blob/master/LICENSE).
+MIT license. See the [LICENSE](https://github.com/OAuthSwift/OAuthSwift/blob/master/LICENSE) file for details.
 
 ## R.swift.Library
 
 Get strong typed, autocompleted resources like images, fonts and segues in Swift projects.
 
-R.swift and R.swift.Library are created by Mathijs Kadijk and released under a [MIT License](https://github.com/mac-cain13/R.swift/blob/master/License).
+MIT license. See the [LICENSE](https://github.com/mac-cain13/R.swift/blob/master/License) file for details.
 
 ## KeychainSwift
 
 Helper functions for saving text in Keychain securely for iOS, OS X, tvOS and watchOS.
 
-MIT license. See the [LICENSE](https://github.com/evgenyneu/keychain-swift/blob/master/LICENSE).
+MIT license. See the [LICENSE](https://github.com/evgenyneu/keychain-swift/blob/master/LICENSE) file for details.
 
 ## Swinject
 
@@ -90,4 +90,4 @@ MIT license. See the [LICENSE](https://github.com/ninjaprox/NVActivityIndicatorV
 
 A drop-in UITableView/UICollectionView superclass category for showing empty datasets whenever the view has no content to display.
 
-MIT license. See the [LICENSE](https://github.com/dzenbot/DZNEmptyDataSet/blob/master/LICENSE).
+MIT license. See the [LICENSE](https://github.com/dzenbot/DZNEmptyDataSet/blob/master/LICENSE) file for details.
