@@ -24,7 +24,8 @@ final class ApplicationAssembly {
             
             // Modules
             BooksListAssemblyContainer(),
-            FavoriteBooksListAssemblyContainer()
+            FavoriteBooksListAssemblyContainer(),
+            BookDetailsAssemblyContainer()
         ])
     }
 }

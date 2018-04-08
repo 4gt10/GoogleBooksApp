@@ -17,6 +17,7 @@ final class FavoriteBooksListViewController: UIViewController, FavoriteBooksList
     
     // MARK: - View out
 
+    var output: FavoriteBooksListModuleInput?
     var viewIsReady: (() -> Void)?
     var getFavoriteBooks: (() -> Void)?
     var removeItemTapped: ((_ item: VolumeViewModel) -> Void)?
@@ -34,14 +35,6 @@ final class FavoriteBooksListViewController: UIViewController, FavoriteBooksList
     
     func update(withItems items: [VolumeViewModel]) {
         dataSource.update(items: items, updateMode: .everything) { }
-    }
-
-    // MARK: - Holder
-
-    private var holder = [Any?]()
-
-    func hold(_ item: Any?) {
-        holder.append(item)
     }
 
 	// MARK: - Life cycle

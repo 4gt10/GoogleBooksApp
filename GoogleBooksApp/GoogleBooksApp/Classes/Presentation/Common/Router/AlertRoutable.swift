@@ -1,8 +1,5 @@
 //
 //  AlertRoutable.swift
-//  CDEK
-//
-//  Created by Artur Chernov on 06/02/2018.
 //
 
 import LightRoute

@@ -19,19 +19,10 @@ final class BooksListPresenter {
                 self?.addNotificationObservers()
             }
             view.searchBooks = { [weak self] query in
-                self?.interactor.searchBooks(query: query) { [weak self] result in
-                    guard let `self` = self else { return }
-                    switch result {
-                    case .success(let volumes):
-                        self.volumes = volumes
-                        self.updateViewItems()
-                    case .failure(let error):
-                        self.router.showAlert(withMessage: error.localizedDescription)
-                    }
-                }
+                self?.reloadItems(withQuery: query)
             }
-            view.itemSelected = { item in
-                
+            view.itemSelected = { [weak self] item in
+                self?.router.openDetails(withViewModel: item)
             }
             view.favoritesTapped = { [weak self] in
                 self?.router.openFavorites()
@@ -64,6 +55,10 @@ final class BooksListPresenter {
     
     // MARK: - Notification observers
     
+    @objc func favoriteBookAdded(notification: Notification) {
+        updateViewItems()
+    }
+    
     @objc func favoriteBookRemoved(notification: Notification) {
         updateViewItems()
     }
@@ -73,10 +68,29 @@ final class BooksListPresenter {
     private func addNotificationObservers() {
         NotificationCenter.default.addObserver(
             self,
+            selector: #selector(favoriteBookAdded(notification:)),
+            name: Notification.Name.favoriteBookAdded,
+            object: nil
+        )
+        NotificationCenter.default.addObserver(
+            self,
             selector: #selector(favoriteBookRemoved(notification:)),
             name: Notification.Name.favoriteBookRemoved,
             object: nil
         )
+    }
+    
+    private func reloadItems(withQuery query: String) {
+        interactor.searchBooks(query: query) { [weak self] result in
+            guard let `self` = self else { return }
+            switch result {
+            case .success(let volumes):
+                self.volumes = volumes
+                self.updateViewItems()
+            case .failure(let error):
+                self.router.showAlert(withMessage: error.localizedDescription)
+            }
+        }
     }
     
     private func updateViewItems() {

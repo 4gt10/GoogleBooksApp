@@ -18,8 +18,7 @@ extension BooksListRouter: BooksListRouterInput {
 
     func openFavorites() {
         try? transitionHandler.forStoryboard(
-            factory: StoryboardFactory(
-                storyboard: R.storyboard.favoriteBooksList()),
+            factory: StoryboardFactory(storyboard: R.storyboard.favoriteBooksList()),
             to: FavoriteBooksListModuleInput.self
         )
         .to(preferred: .navigationController(style: .push))

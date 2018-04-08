@@ -7,7 +7,7 @@
 
 import Foundation
 
-protocol BooksListRouterInput: class, AlertRoutable, URLRoutable {
+protocol BooksListRouterInput: class, AlertRoutable, URLRoutable, BookDetailsRoutable {
 
     func openFavorites()
 }

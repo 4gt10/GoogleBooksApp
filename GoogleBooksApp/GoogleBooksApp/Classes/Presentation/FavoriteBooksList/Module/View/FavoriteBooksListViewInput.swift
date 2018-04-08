@@ -9,6 +9,7 @@ protocol FavoriteBooksListViewInput: class {
 
     // MARK: - View out
 
+    var output: FavoriteBooksListModuleInput? { get set }
     var viewIsReady: (() -> Void)? { get set }
     var getFavoriteBooks: (() -> Void)? { get set }
     var removeItemTapped: ((_ item: VolumeViewModel) -> Void)? { get set }

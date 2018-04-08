@@ -105,6 +105,7 @@
                         <viewLayoutGuide key="safeArea" id="OR5-3f-pbR"/>
                     </view>
                     <navigationItem key="navigationItem" id="lO5-cM-nQF">
+                        <barButtonItem key="backBarButtonItem" title=" " id="py6-du-Q8X"/>
                         <userDefinedRuntimeAttributes>
                             <userDefinedRuntimeAttribute type="string" keyPath="localizedKey" value="favoriteBooksList.title"/>
                         </userDefinedRuntimeAttributes>

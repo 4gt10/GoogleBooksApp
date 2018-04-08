@@ -18,6 +18,7 @@ final class BooksListViewController: UIViewController, BooksListViewInput {
     
     // MARK: - View out
     
+    var output: BooksListModuleInput?
     var viewIsReady: (() -> Void)?
     var searchBooks: ((_ query: String) -> Void)?
     var itemSelected: ((_ item: VolumeViewModel) -> Void)?
@@ -34,14 +35,6 @@ final class BooksListViewController: UIViewController, BooksListViewInput {
     
     func update(withItems items: [VolumeViewModel]) {
         dataSource.update(items: items, updateMode: .everything) { }
-    }
-    
-    // MARK: - Holder
-    
-    private var holder = [Any?]()
-    
-    func hold(_ item: Any?) {
-        holder.append(item)
     }
     
 	// MARK: - Life cycle

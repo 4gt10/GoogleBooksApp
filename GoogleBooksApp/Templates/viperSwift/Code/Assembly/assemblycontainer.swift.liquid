@@ -34,7 +34,7 @@ final class {{ module_info.name }}AssemblyContainer: Assembly {
 		}
 
 		container.storyboardInitCompleted({{ module_info.name }}ViewController.self) { r, viewController in
-			viewController.hold(r.resolve({{ module_info.name }}Presenter.self, argument: viewController))
+			viewController.output = r.resolve({{ module_info.name }}Presenter.self, argument: viewController)
 		}
 	}
 }

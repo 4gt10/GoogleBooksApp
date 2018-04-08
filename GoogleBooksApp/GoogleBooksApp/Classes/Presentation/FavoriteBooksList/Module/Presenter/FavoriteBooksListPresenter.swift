@@ -16,18 +16,10 @@ final class FavoriteBooksListPresenter {
             // Configure view out
             view.viewIsReady = { [weak self] in
                 self?.view.setupInitialState()
+                self?.addNotificationObservers()
             }
             view.getFavoriteBooks = { [weak self] in
-                self?.interactor.getFavoriteBooks { [weak self] result in
-                    guard let `self` = self else { return }
-                    switch result {
-                    case .success(let volumes):
-                        self.volumes = volumes
-                        self.view.update(withItems: volumes.map { VolumeViewModel(model: $0, isFavorite: true) })
-                    case .failure(let error):
-                        self.router.showAlert(withMessage: error.localizedDescription)
-                    }
-                }
+                self?.reloadItems()
             }
             view.removeItemTapped = { [weak self] item in
                 guard let `self` = self else { return }
@@ -36,15 +28,15 @@ final class FavoriteBooksListPresenter {
                     case .success:
                         if let indexOf = self.volumes.index(where: { $0.id == item.model.id }) {
                             self.volumes.remove(at: indexOf)
-                            self.view.update(withItems: self.volumes.map { VolumeViewModel(model: $0, isFavorite: true) })
+                            self.updateViewItems()
                         }
                     case .failure(let error):
                         self.router.showAlert(withMessage: error.localizedDescription)
                     }
                 }
             }
-            view.itemSelected = { item in
-                
+            view.itemSelected = { [weak self] item in
+                self?.router.openDetails(withViewModel: item)
             }
             view.previewTapped = { [weak self] item in
                 self?.router.openURL(item.previewURL)
@@ -55,6 +47,40 @@ final class FavoriteBooksListPresenter {
     var router: FavoriteBooksListRouterInput!
     
     private var volumes: [Volume] = []
+    
+    // MARK: - Notification observers
+    
+    @objc func favoriteBookRemoved(notification: Notification) {
+        reloadItems()
+    }
+    
+    // MARK: - Private
+    
+    private func addNotificationObservers() {
+        NotificationCenter.default.addObserver(
+            self,
+            selector: #selector(favoriteBookRemoved(notification:)),
+            name: Notification.Name.favoriteBookRemoved,
+            object: nil
+        )
+    }
+    
+    private func reloadItems() {
+        interactor.getFavoriteBooks { [weak self] result in
+            guard let `self` = self else { return }
+            switch result {
+            case .success(let volumes):
+                self.volumes = volumes
+                self.updateViewItems()
+            case .failure(let error):
+                self.router.showAlert(withMessage: error.localizedDescription)
+            }
+        }
+    }
+    
+    private func updateViewItems() {
+        view.update(withItems: volumes.map { VolumeViewModel(model: $0, isFavorite: true) })
+    }
 }
 
 // MARK: - FavoriteBooksListModuleInput

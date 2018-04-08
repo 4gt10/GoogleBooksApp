@@ -1,8 +1,5 @@
 //
 //  CloseableRouter.swift
-//  CDEK
-//
-//  Created by Artur Chernov on 10/02/2018.
 //
 
 import LightRoute

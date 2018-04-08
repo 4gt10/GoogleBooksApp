@@ -9,6 +9,7 @@ protocol {{ module_info.name }}ViewInput: class {
 
     // MARK: - View out
 
+    var output: {{ module_info.name }}ModuleInput? { get set }
     var viewIsReady: (() -> Void)? { get set }
 
     // MARK: - View in

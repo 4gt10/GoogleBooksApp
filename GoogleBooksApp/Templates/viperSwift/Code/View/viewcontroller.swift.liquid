@@ -11,20 +11,13 @@ final class {{ module_info.name }}ViewController: UIViewController, {{ module_in
 
     // MARK: - View out
 
+    var output: {{ module_info.name }}ModuleInput?
     var viewIsReady: (() -> Void)?
 
     // MARK: - View in
 
     func setupInitialState() {
 
-    }
-
-    // MARK: - Holder
-
-    private var holder = [Any?]()
-
-    func hold(_ item: Any?) {
-        holder.append(item)
     }
 
 	// MARK: - Life cycle

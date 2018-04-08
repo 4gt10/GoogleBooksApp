@@ -1,8 +1,5 @@
 //
 //  UIImageView.swift
-//  CDEK
-//
-//  Created by Elizaveta on 02/02/2018.
 //
 
 import UIKit

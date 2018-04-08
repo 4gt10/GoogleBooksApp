@@ -7,6 +7,6 @@
 
 import Foundation
 
-protocol FavoriteBooksListRouterInput: class, AlertRoutable, URLRoutable {
+protocol FavoriteBooksListRouterInput: class, AlertRoutable, URLRoutable, BookDetailsRoutable {
 
 }

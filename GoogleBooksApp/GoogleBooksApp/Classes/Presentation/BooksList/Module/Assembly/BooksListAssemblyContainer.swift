@@ -38,7 +38,7 @@ final class BooksListAssemblyContainer: Assembly {
 		}
 
 		container.storyboardInitCompleted(BooksListViewController.self) { r, viewController in
-            viewController.hold(r.resolve(BooksListPresenter.self, argument: viewController))
+            viewController.output = r.resolve(BooksListPresenter.self, argument: viewController)
 		}
 	}
 }

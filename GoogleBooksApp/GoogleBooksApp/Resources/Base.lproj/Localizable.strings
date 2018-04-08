@@ -34,3 +34,7 @@
 "favoriteBooksList.title" = "Favorites";
 "favoriteBooksList.emptyState.title" = "Add some books to favorites";
 "favoriteBooksList.deleteAction.title" = "Delete";
+
+// MARK: - Book details
+
+"bookDetails.title" = "Details";

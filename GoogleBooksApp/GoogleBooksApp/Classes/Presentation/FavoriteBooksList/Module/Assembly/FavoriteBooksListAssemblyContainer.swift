@@ -37,7 +37,7 @@ final class FavoriteBooksListAssemblyContainer: Assembly {
 		}
 
 		container.storyboardInitCompleted(FavoriteBooksListViewController.self) { r, viewController in
-			viewController.hold(r.resolve(FavoriteBooksListPresenter.self, argument: viewController))
+			viewController.output = r.resolve(FavoriteBooksListPresenter.self, argument: viewController)
 		}
 	}
 }

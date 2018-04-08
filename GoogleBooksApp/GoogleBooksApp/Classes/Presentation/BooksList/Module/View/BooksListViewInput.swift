@@ -9,6 +9,7 @@ protocol BooksListViewInput: class, ActivityIndicatorRenderer {
 
     // MARK: - View out
     
+    var output: BooksListModuleInput? { get set }
     var viewIsReady: (() -> Void)? { get set }
     var searchBooks: ((_ query: String) -> Void)? { get set }
     var itemSelected: ((_ item: VolumeViewModel) -> Void)? { get set }
