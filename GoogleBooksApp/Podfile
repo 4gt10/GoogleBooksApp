@@ -3,16 +3,17 @@ platform :ios, '10.0'
 
 target 'GoogleBooksApp' do
     use_frameworks!
-    inhibit_all_warnings!
-    pod 'OAuthSwift', '1.2.0'
-    pod 'KeychainSwift', '11.0'
-    pod 'R.swift', '4.0.0'
-    pod 'Swinject', '2.1.1'
-    pod 'SwinjectStoryboard', '1.1.2'
-    pod 'LightRoute', '2.1'
-    pod 'Moya', '10.0.2'
-    pod 'NVActivityIndicatorView', '4.1.1'
-    pod 'DataSources', '0.6.0'
-    pod 'Kingfisher', '4.6.1'
-    pod 'DZNEmptyDataSet', '1.8.1'
+    
+    pod 'OAuthSwift', '~> 2.0.0'
+    pod 'KeychainSwift', '~> 16.0.1'
+    pod 'R.swift', '~> 5.0.3'
+    pod 'Swinject', '~> 2.6.2'
+    pod 'Moya', '~> 13.0.1'
+    pod 'NVActivityIndicatorView', '~> 4.7.0'
+    pod 'DataSources', '~> 0.8.0'
+    pod 'Kingfisher', '~> 5.7.0'
+    pod 'DZNEmptyDataSet', '~> 1.8.1'
+    
+    pod 'LightRoute', :git => 'https://github.com/SpectralDragon/LightRoute.git'
+    pod 'SwinjectStoryboard', :git => 'https://github.com/mdyson/SwinjectStoryboard.git'
 end

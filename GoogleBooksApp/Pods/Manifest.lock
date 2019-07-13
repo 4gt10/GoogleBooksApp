@@ -1,58 +1,87 @@
 PODS:
-  - Alamofire (4.7.1)
-  - DataSources (0.6.0):
-    - DataSources/Default (= 0.6.0)
-  - DataSources/Default (0.6.0)
+  - Alamofire (4.8.2)
+  - DataSources (0.8.0):
+    - DataSources/Default (= 0.8.0)
+  - DataSources/Default (0.8.0)
   - DZNEmptyDataSet (1.8.1)
-  - KeychainSwift (11.0.0)
-  - Kingfisher (4.6.1)
-  - LightRoute (2.1)
-  - Moya (10.0.2):
-    - Moya/Core (= 10.0.2)
-  - Moya/Core (10.0.2):
+  - KeychainSwift (16.0.1)
+  - Kingfisher (5.7.0)
+  - LightRoute (2.1.20)
+  - Moya (13.0.1):
+    - Moya/Core (= 13.0.1)
+  - Moya/Core (13.0.1):
     - Alamofire (~> 4.1)
-    - Result (~> 3.0)
-  - NVActivityIndicatorView (4.1.1):
-    - NVActivityIndicatorView/Presenter (= 4.1.1)
-  - NVActivityIndicatorView/Presenter (4.1.1)
-  - OAuthSwift (1.2.0)
-  - R.swift (4.0.0):
-    - R.swift.Library (~> 4.0.0)
-  - R.swift.Library (4.0.0)
-  - Result (3.2.4)
-  - Swinject (2.1.1)
-  - SwinjectStoryboard (1.1.2):
-    - Swinject (~> 2.1)
+    - Result (~> 4.1)
+  - NVActivityIndicatorView (4.7.0):
+    - NVActivityIndicatorView/Presenter (= 4.7.0)
+  - NVActivityIndicatorView/Presenter (4.7.0)
+  - OAuthSwift (2.0.0)
+  - R.swift (5.0.3):
+    - R.swift.Library (~> 5.0.0)
+  - R.swift.Library (5.0.1)
+  - Result (4.1.0)
+  - Swinject (2.6.2)
+  - SwinjectStoryboard (2.1.0):
+    - Swinject (~> 2.5)
 
 DEPENDENCIES:
-  - DataSources (= 0.6.0)
-  - DZNEmptyDataSet (= 1.8.1)
-  - KeychainSwift (= 11.0)
-  - Kingfisher (= 4.6.1)
-  - LightRoute (= 2.1)
-  - Moya (= 10.0.2)
-  - NVActivityIndicatorView (= 4.1.1)
-  - OAuthSwift (= 1.2.0)
-  - R.swift (= 4.0.0)
-  - Swinject (= 2.1.1)
-  - SwinjectStoryboard (= 1.1.2)
+  - DataSources (~> 0.8.0)
+  - DZNEmptyDataSet (~> 1.8.1)
+  - KeychainSwift (~> 16.0.1)
+  - Kingfisher (~> 5.7.0)
+  - LightRoute (from `https://github.com/SpectralDragon/LightRoute.git`)
+  - Moya (~> 13.0.1)
+  - NVActivityIndicatorView (~> 4.7.0)
+  - OAuthSwift (~> 2.0.0)
+  - R.swift (~> 5.0.3)
+  - Swinject (~> 2.6.2)
+  - SwinjectStoryboard (from `https://github.com/mdyson/SwinjectStoryboard.git`)
+
+SPEC REPOS:
+  https://github.com/cocoapods/specs.git:
+    - Alamofire
+    - DataSources
+    - DZNEmptyDataSet
+    - KeychainSwift
+    - Kingfisher
+    - Moya
+    - NVActivityIndicatorView
+    - OAuthSwift
+    - R.swift
+    - R.swift.Library
+    - Result
+    - Swinject
+
+EXTERNAL SOURCES:
+  LightRoute:
+    :git: https://github.com/SpectralDragon/LightRoute.git
+  SwinjectStoryboard:
+    :git: https://github.com/mdyson/SwinjectStoryboard.git
+
+CHECKOUT OPTIONS:
+  LightRoute:
+    :commit: c537a7afacc290504bc73c4a893957a4e1932fb7
+    :git: https://github.com/SpectralDragon/LightRoute.git
+  SwinjectStoryboard:
+    :commit: 6063c620b35ec189840318e0be03727372e934d9
+    :git: https://github.com/mdyson/SwinjectStoryboard.git
 
 SPEC CHECKSUMS:
-  Alamofire: 68d7d521118d49c615a8d2214d87cdf525599d30
-  DataSources: 96cf2d97a85072664e991d725beee56d25e9d69d
+  Alamofire: ae5c501addb7afdbb13687d7f2f722c78734c2d3
+  DataSources: b21404b22dfb0816a9f6bda0f36f1803f9d0a978
   DZNEmptyDataSet: 9525833b9e68ac21c30253e1d3d7076cc828eaa7
-  KeychainSwift: bea6bd9f98af7b8d7ca4aa79fe105c00fab532db
-  Kingfisher: 1f9157d9c02b380cbd0b7cc890161195164eb634
-  LightRoute: 4231755d8ae556323f2b4ae43c727d9018546b0c
-  Moya: 2b0531a9fef318e0bc484030c3db1e6f279ccb66
-  NVActivityIndicatorView: 60109b9bf46efc2e71ab81453196ccdfdfeea870
-  OAuthSwift: 7fd6855b8e4d58eb5a30d156ea9bed7a8aecd1ca
-  R.swift: d6a5ec2f55a8441dc0ed9f1f8b37d7d11ae85c66
-  R.swift.Library: c3af34921024333546e23b70e70d0b4e0cffca75
-  Result: d2d07204ce72856f1fd9130bbe42c35a7b0fea10
-  Swinject: afea49fd95f392b41171669f165842879c48fad6
-  SwinjectStoryboard: 92e75763c3299cdf627bef98a5180dc894864336
+  KeychainSwift: 4209611373ca4a098e09b1e547eebd87c544dcc4
+  Kingfisher: c7d211b54f1f30d8060aadab177d52b4349c825b
+  LightRoute: aa65803a1d984be3be83651b433699077bfe6ab3
+  Moya: f4a4b80ff2f8a4ffc208dfb31cd91636622fee6e
+  NVActivityIndicatorView: b19ddab2576f805cbe0fb2306cba3476e09a1dea
+  OAuthSwift: 6805456763cf1c7ae0c16765257ed430b7aacae7
+  R.swift: f5a87643b91ea569d23d6afb3eee9c743edde239
+  R.swift.Library: cfe85d569d9bae6cb262922db130e7c3a7a5fad1
+  Result: bd966fac789cc6c1563440b348ab2598cc24d5c7
+  Swinject: cf7458774b1b00323080a9c67e47a1ee7f9d2af1
+  SwinjectStoryboard: 688f096033103e66ffcf6ca678211acd7d7be505
 
-PODFILE CHECKSUM: 094f6a825b6df82ffa2a01635774e9be0894e89d
+PODFILE CHECKSUM: 9578aaced8fc5ed45a3722960cdbc06d1899f86c
 
-COCOAPODS: 1.4.0
+COCOAPODS: 1.6.1

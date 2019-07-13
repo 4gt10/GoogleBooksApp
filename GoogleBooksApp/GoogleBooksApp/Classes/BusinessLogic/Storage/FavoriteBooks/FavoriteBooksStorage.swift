@@ -50,7 +50,7 @@ extension FavoriteBooksStorage: FavoriteBooksStorageType {
         let defaults = UserDefaults.standard
         guard var favoriteBooksIds = defaults.array(forKey: Constant.favoriteBooksIdsKey) as? [String] else { return }
         if favoriteBooksIds.contains(id) {
-            favoriteBooksIds.remove(at: favoriteBooksIds.index(of: id)!)
+            favoriteBooksIds.remove(at: favoriteBooksIds.firstIndex(of: id)!)
             defaults.set(favoriteBooksIds, forKey: Constant.favoriteBooksIdsKey)
             defaults.synchronize()
             

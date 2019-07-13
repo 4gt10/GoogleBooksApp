@@ -10,7 +10,7 @@ class APIProviderAssembly: Assembly {
     
     func assemble(container: Container) {
         container.register(MoyaProvider<MultiTarget>.self) { _ in
-            let endpointClosure = { (target: MultiTarget) -> Endpoint<MultiTarget> in
+            let endpointClosure = { (target: MultiTarget) -> Endpoint in
                 let defaultEndpoint = MoyaProvider.defaultEndpointMapping(for: target)
                 switch target.target {
                 case let target as OAuthAPIRequestSpecification:

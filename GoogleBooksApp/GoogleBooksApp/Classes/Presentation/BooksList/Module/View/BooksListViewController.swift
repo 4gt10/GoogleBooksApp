@@ -30,7 +30,7 @@ final class BooksListViewController: UIViewController, BooksListViewInput {
     
     func setupInitialState() {
         tableView.estimatedRowHeight = VolumeCell.Constant.defaultHeight
-        tableView.rowHeight = UITableViewAutomaticDimension
+        tableView.rowHeight = UITableView.automaticDimension
     }
     
     func update(withItems items: [VolumeViewModel]) {
@@ -70,7 +70,7 @@ extension BooksListViewController: UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: R.reuseIdentifier.volumeCell, for: indexPath)!
-        let model = dataSource.item(at: indexPath)
+        let model = dataSource.item(at: indexPath)!
         cell.configure(
             withMode: .list,
             model: model,
@@ -90,7 +90,7 @@ extension BooksListViewController: UITableViewDataSource {
 extension BooksListViewController: UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        itemSelected?(dataSource.item(at: indexPath))
+        itemSelected?(dataSource.item(at: indexPath)!)
         tableView.deselectRow(at: indexPath, animated: true)
     }
 }

@@ -26,7 +26,7 @@ final class FavoriteBooksListPresenter {
                 self.interactor.removeFavoriteBook(withId: item.model.id) { result in
                     switch result {
                     case .success:
-                        if let indexOf = self.volumes.index(where: { $0.id == item.model.id }) {
+                        if let indexOf = self.volumes.firstIndex(where: { $0.id == item.model.id }) {
                             self.volumes.remove(at: indexOf)
                             self.updateViewItems()
                         }

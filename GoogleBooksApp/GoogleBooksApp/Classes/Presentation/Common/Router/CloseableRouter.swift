@@ -12,6 +12,6 @@ protocol CloseableRouter: Router {
 extension CloseableRouter {
     
     func close(animated: Bool) {
-        try? transitionHandler.closeCurrentModule(animated: animated).perform()
+        try? transitionHandler.closeCurrentModule().perform()
     }
 }

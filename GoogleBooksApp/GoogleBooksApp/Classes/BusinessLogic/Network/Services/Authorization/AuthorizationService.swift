@@ -89,24 +89,21 @@ extension AuthorizationService: AuthorizationServiceType {
                     return
                 }
                 self.oauthSwift.authorizeURLHandler = SafariURLHandler(viewController: visibleViewController, oauthSwift: self.oauthSwift)
+                
                 self.oauthSwift.authorize(
                     withCallbackURL: AppConfiguration.oauthCallbackURL,
                     scope: Constant.scope,
-                    state: Constant.state,
-                    success: { (credentical, response, params) in
-                        DispatchQueue.main.async {
-                            self.keychainStorage?.set(value: credentical.oauthToken, forKey: .oauthToken)
-                            self.keychainStorage?.set(value: credentical.oauthRefreshToken, forKey: .oauthRefreshToken)
-                            self.keychainStorage?.set(value: "\(credentical.oauthTokenExpiresAt!.timeIntervalSince1970)", forKey: .tokenExpiresDate)
+                    state: Constant.state) { result in
+                        switch result {
+                        case .success(let response):
+                            self.keychainStorage?.set(value: response.credential.oauthToken, forKey: .oauthToken)
+                            self.keychainStorage?.set(value: response.credential.oauthRefreshToken, forKey: .oauthRefreshToken)
+                            self.keychainStorage?.set(value: "\(response.credential.oauthTokenExpiresAt!.timeIntervalSince1970)", forKey: .tokenExpiresDate)
                             completion?(Result.success(()))
-                        }
-                    },
-                    failure: { error in
-                        DispatchQueue.main.async {
+                        case .failure(let error):
                             completion?(Result.failure(AuthorizationError.unhandled(error: error)))
                         }
-                    }
-                )
+                }
             }
         }
     }
@@ -129,17 +126,16 @@ extension AuthorizationService: AuthorizationServiceType {
             return
         }
         
-        oauthSwift.renewAccessToken(
-            withRefreshToken: refreshToken,
-            success: { [weak self] credentical, response, params in
-                self?.keychainStorage?.set(value: credentical.oauthToken, forKey: .oauthToken)
-                self?.keychainStorage?.set(value: credentical.oauthRefreshToken, forKey: .oauthRefreshToken)
-                self?.keychainStorage?.set(value: "\(credentical.oauthTokenExpiresAt!.timeIntervalSince1970)", forKey: .tokenExpiresDate)
+        oauthSwift.renewAccessToken(withRefreshToken: refreshToken) { result in
+            switch result {
+            case .success(let response):
+                self.keychainStorage?.set(value: response.credential.oauthToken, forKey: .oauthToken)
+                self.keychainStorage?.set(value: response.credential.oauthRefreshToken, forKey: .oauthRefreshToken)
+                self.keychainStorage?.set(value: "\(response.credential.oauthTokenExpiresAt!.timeIntervalSince1970)", forKey: .tokenExpiresDate)
                 completion?(Result.success(()))
-            },
-            failure: { error in
+            case .failure(let error):
                 completion?(Result.failure(AuthorizationError.unhandled(error: error)))
             }
-        )
+        }
     }
 }

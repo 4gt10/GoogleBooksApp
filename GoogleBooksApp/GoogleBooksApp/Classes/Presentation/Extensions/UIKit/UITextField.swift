@@ -26,13 +26,13 @@ extension UITextField {
     
     @IBInspectable var aPlaceholderColor: UIColor? {
         get {
-            return attributedPlaceholder?.attribute(NSAttributedStringKey.foregroundColor, at: 0, effectiveRange: nil) as? UIColor
+            return attributedPlaceholder?.attribute(NSAttributedString.Key.foregroundColor, at: 0, effectiveRange: nil) as? UIColor
         }
         set {
             guard
                 let placeholder = placeholder,
                 let placeholderColor = newValue else { return }
-            attributedPlaceholder = NSAttributedString(string: placeholder, attributes: [NSAttributedStringKey.foregroundColor: placeholderColor])
+            attributedPlaceholder = NSAttributedString(string: placeholder, attributes: [NSAttributedString.Key.foregroundColor: placeholderColor])
         }
     }
 }

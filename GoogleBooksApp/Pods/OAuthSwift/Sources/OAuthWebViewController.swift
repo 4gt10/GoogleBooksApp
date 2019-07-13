@@ -47,8 +47,10 @@ open class OAuthWebViewController: OAuthViewController, OAuthSwiftURLHandlerType
     /// If controller have an navigation controller, application top view controller could be used if true
     public var useTopViewControlerInsteadOfNavigation = false
 
-    /// If you want you could set animation transition to NO
+    /// Set false to disable present animation.
     public var presentViewControllerAnimated = true
+    /// Set false to disable dismiss animation.
+    public var dismissViewControllerAnimated = true
 
     public var topViewController: UIViewController? {
         #if !OAUTH_APP_EXTENSIONS
@@ -104,26 +106,21 @@ open class OAuthWebViewController: OAuthViewController, OAuthSwiftURLHandlerType
             if let p = self.parent { // default behaviour if this controller affected as child controller
                 switch self.present {
                 case .asSheet:
-                    p.presentViewControllerAsSheet(self)
-                    break
+                    p.presentAsSheet(self)
                 case .asModalWindow:
-                    p.presentViewControllerAsModalWindow(self)
+                    p.presentAsModalWindow(self)
                     // FIXME: if we present as window, window close must detected and oauthswift.cancel() must be called...
-                    break
                 case .asPopover(let positioningRect, let positioningView, let preferredEdge, let behavior):
-                    p.presentViewController(self, asPopoverRelativeTo: positioningRect, of : positioningView, preferredEdge: preferredEdge, behavior: behavior)
-                    break
+                    p.present(self, asPopoverRelativeTo: positioningRect, of: positioningView, preferredEdge: preferredEdge, behavior: behavior)
                 case .transitionFrom(let fromViewController, let options):
                     let completion: () -> Void = { /*[unowned self] in*/
                         //self.delegate?.oauthWebViewControllerDidPresent()
                     }
                     p.transition(from: fromViewController, to: self, options: options, completionHandler: completion)
-                    break
                 case .animator(let animator):
-                    p.presentViewController(self, animator: animator)
+                    p.present(self, animator: animator)
                 case .segue(let segueIdentifier):
-                    p.performSegue(withIdentifier: NSStoryboardSegue.Identifier(rawValue: segueIdentifier), sender: self) // The segue must display self.view
-                    break
+                    p.performSegue(withIdentifier: segueIdentifier, sender: self) // The segue must display self.view
                 }
             } else if let window = self.view.window {
                 window.makeKeyAndOrderFront(nil)
@@ -139,25 +136,24 @@ open class OAuthWebViewController: OAuthViewController, OAuthSwiftURLHandlerType
             let completion: () -> Void = { [unowned self] in
                 self.delegate?.oauthWebViewControllerDidDismiss()
             }
-            let animated = true
             if let navigationController = self.navigationController, (!useTopViewControlerInsteadOfNavigation || self.topViewController == nil) {
-                navigationController.popViewController(animated: animated)
+                navigationController.popViewController(animated: dismissViewControllerAnimated)
             } else if let parentViewController = self.parent {
                 // The presenting view controller is responsible for dismissing the view controller it presented
-                parentViewController.dismiss(animated: animated, completion: completion)
+                parentViewController.dismiss(animated: dismissViewControllerAnimated, completion: completion)
             } else if let topViewController = topViewController {
-                topViewController.dismiss(animated: animated, completion: completion)
+                topViewController.dismiss(animated: dismissViewControllerAnimated, completion: completion)
             } else {
                 // keep old code...
-                self.dismiss(animated: animated, completion: completion)
+                self.dismiss(animated: dismissViewControllerAnimated, completion: completion)
             }
         #elseif os(watchOS)
             self.dismiss()
         #elseif os(OSX)
-            if self.presenting != nil {
+        if self.presentingViewController != nil {
                 self.dismiss(nil)
                 if self.parent != nil {
-                    self.removeFromParentViewController()
+                    self.removeFromParent()
                 }
             } else if let window = self.view.window {
                 window.performClose(nil)

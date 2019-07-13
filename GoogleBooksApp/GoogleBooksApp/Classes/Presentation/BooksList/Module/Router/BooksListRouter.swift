@@ -21,7 +21,7 @@ extension BooksListRouter: BooksListRouterInput {
             factory: StoryboardFactory(storyboard: R.storyboard.favoriteBooksList()),
             to: FavoriteBooksListModuleInput.self
         )
-        .to(preferred: .navigationController(style: .push))
+        .to(preferred: .navigation(style: .push))
         .perform()
     }
 }

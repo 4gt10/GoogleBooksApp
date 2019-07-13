@@ -13,7 +13,7 @@ final class FavoriteBooksListViewController: UIViewController, FavoriteBooksList
 
     @IBOutlet weak var tableView: UITableView!
     
-    private lazy var dataSource: SectionDataController<VolumeViewModel, TableViewAdapter> = .init(adapter: .init(tableView: tableView))
+    private lazy var dataSource: SectionDataController<VolumeViewModel, TableViewAdapter> = SectionDataController(adapter: .init(tableView: tableView))
     
     // MARK: - View out
 
@@ -28,7 +28,7 @@ final class FavoriteBooksListViewController: UIViewController, FavoriteBooksList
 
     func setupInitialState() {
         tableView.estimatedRowHeight = VolumeCell.Constant.defaultHeight
-        tableView.rowHeight = UITableViewAutomaticDimension
+        tableView.rowHeight = UITableView.automaticDimension
         
         getFavoriteBooks?()
     }
@@ -55,7 +55,7 @@ extension FavoriteBooksListViewController: UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: R.reuseIdentifier.volumeCell, for: indexPath)!
-        let model = dataSource.item(at: indexPath)
+        let model = dataSource.item(at: indexPath)!
         cell.configure(
             withMode: .favoritesList,
             model: model,
@@ -73,7 +73,7 @@ extension FavoriteBooksListViewController: UITableViewDataSource {
 extension FavoriteBooksListViewController: UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        itemSelected?(dataSource.item(at: indexPath))
+        itemSelected?(dataSource.item(at: indexPath)!)
         tableView.deselectRow(at: indexPath, animated: true)
     }
     
@@ -81,9 +81,9 @@ extension FavoriteBooksListViewController: UITableViewDelegate {
         return true
     }
     
-    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
+    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         if (editingStyle == .delete) {
-            removeItemTapped?(dataSource.item(at: indexPath))
+            removeItemTapped?(dataSource.item(at: indexPath)!)
         }
     }
     

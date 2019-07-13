@@ -3,7 +3,7 @@ This application makes use of the following third party libraries:
 
 ## Alamofire
 
-Copyright (c) 2014-2018 Alamofire Software Foundation (http://alamofire.org/)
+Copyright (c) 2014 Alamofire Software Foundation (http://alamofire.org/)
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
@@ -66,7 +66,7 @@ SOFTWARE.
 
 The MIT License
 
-Copyright (c) 2015 Marketplacer
+Copyright (c) 2015 Evgenii Neumerzhitckii
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
@@ -90,7 +90,7 @@ THE SOFTWARE.
 
 The MIT License (MIT)
 
-Copyright (c) 2017 Wei Wang
+Copyright (c) 2018 Wei Wang
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
@@ -212,7 +212,7 @@ THE SOFTWARE.
 
 The MIT License (MIT)
 
-Copyright (c) 2014-2017 Mathijs Kadijk
+Copyright (c) 2014-2019 Mathijs Kadijk
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal

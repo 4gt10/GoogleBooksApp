@@ -8,7 +8,7 @@ Swift based OAuth library for iOS and macOS.
 
 ## Support OAuth1.0, OAuth2.0
 
-Twitter, Flickr, Github, Instagram, Foursquare. Fitbit, Withings, Linkedin, Dropbox, Dribbble, Salesforce, BitBucket, GoogleDrive, Smugmug, Intuit, Zaim, Tumblr, Slack, Uber, Gitter, Facebook, Spotify, Typetalk, SoundCloud, etc
+Twitter, Flickr, Github, Instagram, Foursquare, Fitbit, Withings, Linkedin, Dropbox, Dribbble, Salesforce, BitBucket, GoogleDrive, Smugmug, Intuit, Zaim, Tumblr, Slack, Uber, Gitter, Facebook, Spotify, Typetalk, SoundCloud, etc
 
 ## Installation
 
@@ -24,7 +24,7 @@ OAuthSwift is packaged as a Swift framework. Currently this is the simplest way 
 * Install Carthage (https://github.com/Carthage/Carthage)
 * Create Cartfile file
 ```
-github "OAuthSwift/OAuthSwift" ~> 1.2.0
+github "OAuthSwift/OAuthSwift" ~> 2.0.0
 ```
 * Run `carthage update`.
 * On your application targets’ “General” settings tab, in the “Embedded Binaries” section, drag and drop OAuthSwift.framework from the Carthage/Build/iOS folder on disk.
@@ -34,15 +34,25 @@ github "OAuthSwift/OAuthSwift" ~> 1.2.0
 * Podfile
 
 ```
-platform :ios, '9.0'
+platform :ios, '10.0'
 use_frameworks!
 
-pod 'OAuthSwift', '~> 1.2.0'
+pod 'OAuthSwift', '~> 2.0.0'
 ```
 
-### swift 3
+### Old versions
+
+#### swift 3
 
 Use the `swift3` branch, or the tag `1.1.2` on main branch
+
+#### swift 4
+
+Use the tag `1.2.0` on main branch
+
+#### objective c
+
+Use the tag `1.4.1` on main branch
 
 ## How to
 ### Setting URL Schemes
@@ -53,7 +63,7 @@ Replace oauth-swift by your application name
 ### Handle URL in AppDelegate
 - On iOS implement `UIApplicationDelegate` method
 ```swift
-func application(_ app: UIApplication, open url: URL, options: [UIApplicationOpenURLOptionsKey : Any] = [:]) -> Bool {
+func application(_ app: UIApplication, open url: URL, options: [UIApplication.OpenURLOptionsKey  : Any] = [:]) -> Bool {
   if (url.host == "oauth-callback") {
     OAuthSwift.handle(url: url)
   }
@@ -89,17 +99,17 @@ oauthswift = OAuth1Swift(
 )
 // authorize
 let handle = oauthswift.authorize(
-    withCallbackURL: URL(string: "oauth-swift://oauth-callback/twitter")!,
-    success: { credential, response, parameters in
+    withCallbackURL: URL(string: "oauth-swift://oauth-callback/twitter")!) { result in
+    switch result {
+    case .success(let (credential, response, parameters)):
       print(credential.oauthToken)
       print(credential.oauthTokenSecret)
       print(parameters["user_id"])
       // Do your request
-    },
-    failure: { error in
+    case .failure(let error):
       print(error.localizedDescription)
     }             
-)
+}
 ```
 ### OAuth1 without authorization
 No urls to specify here
@@ -110,18 +120,19 @@ oauthswift = OAuth1Swift(
     consumerSecret: "********"
 )
 // do your HTTP request without authorize
-oauthswift.client.get("https://api.example.com/foo/bar",
-    success: { response in
+oauthswift.client.get("https://api.example.com/foo/bar") { result in
+    switch result {
+    case .success(let response):
         //....
-    },
-    failure: { error in
+    case .failure(let error):
         //...
     }
-)
+}
 ```
 
 ### Authorize with OAuth2.0
 ```swift
+// create an instance and retain it
 oauthswift = OAuth2Swift(
     consumerKey:    "********",
     consumerSecret: "********",
@@ -130,17 +141,50 @@ oauthswift = OAuth2Swift(
 )
 let handle = oauthswift.authorize(
     withCallbackURL: URL(string: "oauth-swift://oauth-callback/instagram")!,
-    scope: "likes+comments", state:"INSTAGRAM",
-    success: { credential, response, parameters in
+    scope: "likes+comments", state:"INSTAGRAM") { result in
+    switch result {
+    case .success(let (credential, response, parameters)):
       print(credential.oauthToken)
       // Do your request
-    },
-    failure: { error in
+    case .failure(let error):
       print(error.localizedDescription)
     }
-)
+}
 
 ```
+
+### Authorize with OAuth2.0 and proof key flow (PKCE)
+```swift
+// create an instance and retain it
+oauthswift = OAuth2Swift(
+    consumerKey:    "********",
+    consumerSecret: "********",
+    authorizeUrl: "https://server.com/oauth/authorize",
+    responseType: "code"
+)
+oauthswift.accessTokenBasicAuthentification = true
+
+let codeVerifier = base64url("abcd...")
+let codeChallenge = codeChallenge(for: codeVerifier)
+
+let handle = oauthswift.authorize(
+    withCallbackURL: URL(string: "myApp://callback/")!,
+    scope: "requestedScope", 
+    state:"State01",
+    codeChallenge: codeChallenge,
+    codeChallengeMethod: "S256",
+    codeVerifier: codeVerifier) { result in
+    switch result {
+    case .success(let (credential, response, parameters)):
+      print(credential.oauthToken)
+      // Do your request
+    case .failure(let error):
+      print(error.localizedDescription)
+    }
+}
+
+```
+
 
 See demo for more examples
 
@@ -176,19 +220,19 @@ Of course you can create your own class or customize the controller by setting t
 Just call HTTP functions of `oauthswift.client`
 
 ```swift
-oauthswift.client.get("https://api.linkedin.com/v1/people/~",
-      success: { response in
+oauthswift.client.get("https://api.linkedin.com/v1/people/~") { result in
+    switch result {
+    case .success(let response):
         let dataString = response.string
         print(dataString)
-      },
-      failure: { error in
+    case .failure(let error):
         print(error)
-      }
-)
+    }
+}
 // same with request method
 oauthswift.client.request("https://api.linkedin.com/v1/people/~", .GET,
       parameters: [:], headers: [:],
-      success: { ...
+      completionHandler: { ...
 ```
 
 See more examples in the demo application: [ViewController.swift](/Demo/Common/ViewController.swift)
@@ -200,7 +244,7 @@ See more examples in the demo application: [ViewController.swift](/Demo/Common/V
 * [Github](https://developer.github.com/v3/oauth/)  
 * [Instagram](http://instagram.com/developer/authentication)  
 * [Foursquare](https://developer.foursquare.com/overview/auth)  
-* [Fitbit](https://wiki.fitbit.com/display/API/OAuth+Authentication+in+the+Fitbit+API)  
+* [Fitbit](https://dev.fitbit.com/build/reference/web-api/oauth2/)  
 * [Withings](http://oauth.withings.com/api)  
 * [Linkedin](https://developer.linkedin.com/docs/oauth2)  
 * [Dropbox](https://www.dropbox.com/developers/core/docs)  
@@ -222,7 +266,7 @@ See more examples in the demo application: [ViewController.swift](/Demo/Common/V
 * [Goodreads](https://www.goodreads.com/api/documentation#oauth)
 * [Typetalk](http://developer.nulab-inc.com/docs/typetalk/auth)
 * [SoundCloud](https://developers.soundcloud.com/docs/api/guide#authentication)
-* [Digu](https://digu.io/developer/oauth)
+* [Doper](https://doper.io/developer/oauth)
 * [NounProject](http://api.thenounproject.com/getting_started.html#authentication)
 
 ## Images
@@ -251,9 +295,8 @@ To achieve great asynchronous code you can use one of these integration framewor
 
 OAuthSwift is available under the MIT license. See the LICENSE file for more info.
 
-[![Join the chat at https://gitter.im/OAuthSwift/OAuthSwift](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/OAuthSwift/OAuthSwift?utm_campaign=pr-badge&utm_content=badge&utm_medium=badge&utm_source=badge)
 [![License](https://img.shields.io/badge/license-MIT-blue.svg?style=flat
             )](http://mit-license.org) [![Platform](https://img.shields.io/badge/platform-iOS_OSX_TVOS-lightgrey.svg?style=flat
              )](https://developer.apple.com/resources/) [![Language](https://img.shields.io/badge/language-swift-orange.svg?style=flat
              )](https://developer.apple.com/swift) [![Cocoapod](https://img.shields.io/cocoapods/v/OAuthSwift.svg?style=flat)](http://cocoadocs.org/docsets/OAuthSwift/)
-[![Carthage compatible](https://img.shields.io/badge/Carthage-compatible-4BC51D.svg?style=flat)](https://github.com/Carthage/Carthage)
+[![Carthage compatible](https://img.shields.io/badge/Carthage-compatible-4BC51D.svg?style=flat)](https://github.com/Carthage/Carthage) [![Build Status](https://travis-ci.org/OAuthSwift/OAuthSwift.svg?branch=master)](https://travis-ci.org/OAuthSwift/OAuthSwift)

@@ -16,18 +16,20 @@ protocol ActivityIndicatorRenderer {
     func hideProgress()
 }
 
-extension ActivityIndicatorRenderer {
+extension ActivityIndicatorRenderer where Self: UIViewController {
     
     func showProgress() {
+        view.isUserInteractionEnabled = false
         let activityData = ActivityData(
             size: ActivityIndicatorRendererConstant.size,
             type: NVActivityIndicatorType.circleStrokeSpin,
             displayTimeThreshold: ActivityIndicatorRendererConstant.threshold
         )
-        NVActivityIndicatorPresenter.sharedInstance.startAnimating(activityData)
+        NVActivityIndicatorPresenter.sharedInstance.startAnimating(activityData, nil)
     }
     
     func hideProgress() {
-        NVActivityIndicatorPresenter.sharedInstance.stopAnimating()
+        view.isUserInteractionEnabled = true
+        NVActivityIndicatorPresenter.sharedInstance.stopAnimating(nil)
     }
 }

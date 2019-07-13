@@ -20,7 +20,7 @@ extension BookDetailsRoutable {
             factory: StoryboardFactory(storyboard: R.storyboard.bookDetails()),
             to: BookDetailsModuleInput.self
         )
-        .to(preferred: .navigationController(style: .push))
+        .to(preferred: .navigation(style: .push))
         .then { moduleInput in
             moduleInput.configure(withViewModel: viewModel)
         }

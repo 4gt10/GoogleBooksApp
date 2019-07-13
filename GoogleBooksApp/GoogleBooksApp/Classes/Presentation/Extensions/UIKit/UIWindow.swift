@@ -10,14 +10,14 @@ import UIKit
 
 public extension UIWindow {
     
-    public class func visibleViewController() -> UIViewController? {
+    class func visibleViewController() -> UIViewController? {
         if let rootViewController: UIViewController = UIApplication.shared.keyWindow?.rootViewController {
             return UIWindow.visibleViewController(from: rootViewController)
         }
         return nil
     }
     
-    public class func visibleViewController(from viewController: UIViewController) -> UIViewController {
+    class func visibleViewController(from viewController: UIViewController) -> UIViewController {
         if let navigationController = viewController as? UINavigationController {
             return UIWindow.visibleViewController(from: navigationController.visibleViewController!)
         } else if let tabBarController = viewController as? UITabBarController {

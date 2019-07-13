@@ -1,15 +1,18 @@
 # LightRoute
-[![Pod version](https://badge.fury.io/co/LightRoute.svg)](https://badge.fury.io/co/LightRoute)
+[![Build Status](https://travis-ci.org/SpectralDragon/LightRoute.svg?branch=master)](https://travis-ci.org/SpectralDragon/LightRoute)
+[![Pod version](https://img.shields.io/cocoapods/v/LightRoute.svg)](https://img.shields.io/cocoapods/v/LightRoute.svg)
+[![Carthage compatible](https://img.shields.io/badge/Carthage-compatible-4BC51D.svg?style=flat)](https://github.com/Carthage/Carthage)
 ![Platform](https://img.shields.io/badge/platform-iOS-lightgrey.svg)
 [![License](https://img.shields.io/badge/license-MIT-blue.svg)](https://github.com/SpectralDragon/LightRoute/blob/master/LICENSE.txt)
-![Swift](https://img.shields.io/badge/Swift-4.0-green.svg)
+[![Twitter](https://img.shields.io/badge/twitter-@SpectralDragon_-blue.svg?style=flat)](http://twitter.com/spectraldragon_)
+![Swift](https://img.shields.io/badge/Swift-4.2-green.svg)
 
 ## Description
 LightRoute is easy transition between VIPER modules, who implemented on pure Swift.
 We can transition between your modules very easy from couple lines of codes.
 
-## Install
-**CocoaPods**
+## Installation
+### CocoaPods
 
 Add to your podfile:
 
@@ -17,9 +20,30 @@ Add to your podfile:
 pod "LightRoute"
 ```
 
-**Swift Package Manager**
+### Carthage
+
+[Carthage](https://github.com/Carthage/Carthage) is a decentralized dependency manager that builds your dependencies and provides you with binary frameworks.
+
+You can install Carthage with [Homebrew](http://brew.sh/) using the following command:
+
+```bash
+$ brew update
+$ brew install carthage
+```
+
+To integrate LightRoute into your Xcode project using Carthage, specify it in your `Cartfile`:
+
+```ogdl
+github "SpectralDragon/LightRoute" ~> 2.1
+```
+
+Run `carthage update` to build the framework and drag the built `LightRoute.framework` into your Xcode project.
+
+### Swift Package Manager
 
 Once you have your Swift package set up, adding LightRoute as a dependency is as easy as adding it to the dependencies value of your `Package.swift`.
+
+**Swift 3**
 
 ```swift
 dependencies: [
@@ -27,9 +51,18 @@ dependencies: [
 ]
 ```
 
+**Swift 4**
+
+```swift
+dependencies: [
+    .package(url: "https://github.com/SpectralDragon/LightRoute.git", from: "2.1")
+]
+```
+
 ## Example
 
-- Demo project [Viper-LightRoute-Swinject](https://github.com/SpectralDragon/Viper-LightRoute-Swinject)
+- **New Demo project:** [iOS Example](https://github.com/SpectralDragon/LightRoute/tree/master/Example)
+- Old Demo project: [Viper-LightRoute-Swinject](https://github.com/SpectralDragon/Viper-LightRoute-Swinject)
 
 ## About LightRoute
 
@@ -71,7 +104,7 @@ final class FirstViperRouter: FirstViperRouterInput {
       .transition(animate: false)
 
       // Set transition case.
-      .to(preffered: TransitionStyle.navigationController(prefferedStyle: .push))
+      .to(preffered: TransitionStyle.navigation(style: .push))
 
       // View controller init block. 
       .then { moduleInput in 
@@ -180,11 +213,24 @@ This methods can animate your current transition.
 
 **Change presentation**
 
-Method `to(preffered:)`, have responsobility for change presentation style. He work with UINavigationController, UISplitViewController and default presentation.
+Method `to(preffered:)`, have responsobility for change presentation style. He work with UINavigationController, UISplitViewController, ModalPresentation and default presentation.
 
 ```swift
 .to(preferred: TransitionStyle)
 ```
+**📌Supported styles:**
+- ***Navigation style*** (`push`, `pop`, `present`)
+  ```swift
+  .to(preferred: .navigation(style: NavigationStyle))
+   ```
+ - ***Split style*** (`detail`, `default`)
+    ```swift
+    .to(preferred: .split(style: SplitStyle))
+   ```
+ - ***Modal style*** (`UIModalTransitionStyle`, `UIModalPresentationStyle` - standart UIKit's presentations styles.)
+    ```swift
+    .to(preferred: .modal(style: style: (transition: UIModalTransitionStyle, presentation: UIModalPresentationStyle)))
+   ```
 
 **Configure you destination controller**
 
@@ -233,7 +279,7 @@ func openModule(userIdentifier: String) {
 
 ## Transition for Segue
 
-And finish, you can initiate transition from `UIStoryboardSegue` like this:
+You can initiate transition from `UIStoryboardSegue` like this:
 
 ```swift
 
@@ -248,15 +294,49 @@ func openModule(userIdentifier: String) {
 
 ```
 
+If you want to use `EmbedSegue`, need to add segue in storyboard, set class `EmbedSegue` and source view controller must conform protocol `ViewContainerForEmbedSegue` like this:
+
+```swift
+
+extension SourceViewController: ViewContainerForEmbedSegue {
+    func containerViewForSegue(_ identifier: String) -> UIView {
+        return embedView
+    }
+}
+
+```
+
+And you can initiate `EmbedSegue` transition like this:
+
+```swift
+
+func addEmbedModule() {
+  try? transitionHandler
+       .forSegue(identifier: "LightRouteEmbedSegue", to: EmbedModuleInput.self)
+       .perform()
+}
+
+```
+
 ## Close current module
 
 If you want initiate close current module, you should be use:
 
 ```swift
-.closeCurrentModule(animated: Bool)
+.closeCurrentModule()
 ```
 
 And after this you can use `perform()` method for initiate close method.
+
+**Animate close transition**
+
+This methods can animate your current transition.
+
+```swift
+.transition(animate: false)
+```
+
+Note: Default `true`
 
 **Custom close style**
 
@@ -267,11 +347,11 @@ If you need call `popToViewController(:animated)` for your custom controller, yo
 
 ````swift
 try? transitionHandler
-  .closeCurrentModule(animated: true)
+  .closeCurrentModule()
   .find(pop: { controller -> Bool
     return controller is MyCustomController
   })
-  .preferred(style: .navigationController(style: .findedPop))
+  .preferred(style: .navigation(style: .findedPop))
   .perform()
 ````
 
