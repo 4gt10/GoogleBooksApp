@@ -10,9 +10,10 @@ import Foundation
 
 struct ImageLinks: Decodable {
     
-    let thumbnail: String
+    let thumbnail: String?
     
     var thumbnailURL: URL? {
+        guard let thumbnail = thumbnail else { return nil }
         return URL(string: thumbnail)
     }
 }

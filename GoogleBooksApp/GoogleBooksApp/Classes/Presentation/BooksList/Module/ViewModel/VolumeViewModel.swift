@@ -15,8 +15,8 @@ struct VolumeViewModel {
     
     private let id: String
     let imageURL: URL?
-    let name: String
-    let authors: String
+    let name: String?
+    let authors: String?
     let description: String?
     let previewURL: URL?
     var isFavorite: Bool
@@ -25,9 +25,9 @@ struct VolumeViewModel {
         self.model = model
         
         self.id = model.id
-        self.imageURL = model.volumeInfo.imageLinks.thumbnailURL
+        self.imageURL = model.volumeInfo.imageLinks?.thumbnailURL
         self.name = model.volumeInfo.title
-        self.authors = model.volumeInfo.authors.joined(separator: ", ")
+        self.authors = model.volumeInfo.authors?.joined(separator: ", ")
         self.description = model.volumeInfo.description
         self.previewURL = model.volumeInfo.previewLinkURL
         self.isFavorite = isFavorite

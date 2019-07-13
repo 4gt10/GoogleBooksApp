@@ -10,13 +10,14 @@ import Foundation
 
 struct VolumeInfo: Decodable {
     
-    let title: String
-    let authors: [String]
+    let title: String?
+    let authors: [String]?
     let description: String?
-    let imageLinks: ImageLinks
-    let previewLink: String
+    let imageLinks: ImageLinks?
+    let previewLink: String?
     
     var previewLinkURL: URL? {
+        guard let previewLink = previewLink else { return nil }
         return URL(string: previewLink)
     }
 }

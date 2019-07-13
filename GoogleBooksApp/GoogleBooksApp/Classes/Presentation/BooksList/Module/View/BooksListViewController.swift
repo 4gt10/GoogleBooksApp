@@ -56,6 +56,7 @@ final class BooksListViewController: UIViewController, BooksListViewInput {
 extension BooksListViewController: UISearchBarDelegate {
     
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
+        view.endEditing(true)
         searchBooks?(searchBar.text ?? "")
     }
 }
