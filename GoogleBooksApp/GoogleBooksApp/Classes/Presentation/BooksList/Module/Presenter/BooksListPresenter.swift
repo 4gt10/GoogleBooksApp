@@ -69,13 +69,13 @@ final class BooksListPresenter {
         NotificationCenter.default.addObserver(
             self,
             selector: #selector(favoriteBookAdded(notification:)),
-            name: Notification.Name.favoriteBookAdded,
+            name: Notification.Name.Favorite.added,
             object: nil
         )
         NotificationCenter.default.addObserver(
             self,
             selector: #selector(favoriteBookRemoved(notification:)),
-            name: Notification.Name.favoriteBookRemoved,
+            name: Notification.Name.Favorite.removed,
             object: nil
         )
     }

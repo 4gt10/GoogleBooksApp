@@ -10,6 +10,9 @@ import Foundation
 
 extension Notification.Name {
     
-    static let favoriteBookAdded = Notification.Name(rawValue: "com.chernov.GoogleBooksApp.notification.favoriteBookAdded")
-    static let favoriteBookRemoved = Notification.Name(rawValue: "com.chernov.GoogleBooksApp.notification.favoriteBookRemoved")
+    enum Favorite {
+        
+        static let added = Notification.Name(rawValue: "com.chernov.GoogleBooksApp.notification.Favorite.added")
+        static let removed = Notification.Name(rawValue: "com.chernov.GoogleBooksApp.notification.Favorite.removed")
+    }
 }

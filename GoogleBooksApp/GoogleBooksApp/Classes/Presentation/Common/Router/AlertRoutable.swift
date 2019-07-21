@@ -15,7 +15,6 @@ extension TransitionHandler where Self: UIViewController {
         alert.addAction(UIAlertAction(title: R.string.localizable.commonOk(), style: .default) { _ in
             closeHandler?()
         })
-
         present(alert, animated: true, completion: nil)
     }
 }
@@ -23,10 +22,7 @@ extension TransitionHandler where Self: UIViewController {
 extension AlertRoutable {
     
     func showAlert(withMessage message: String, title: String? = nil, closeHandler: (() -> Void)? = nil) {
-        guard let transitionHandler = transitionHandler as? UIViewController else {
-            debugPrint("Transition handler should be UIViewController.")
-            return
-        }
+        guard let transitionHandler = transitionHandler as? UIViewController else { return }
         transitionHandler.showAlert(withMessage: message, title: title, closeHandler: closeHandler)
     }
 }
