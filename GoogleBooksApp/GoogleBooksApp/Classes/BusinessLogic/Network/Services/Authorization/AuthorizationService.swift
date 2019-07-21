@@ -82,7 +82,7 @@ extension AuthorizationService: AuthorizationServiceType {
             guard let `self` = self else { return }
             switch result {
             case .success:
-                guard let oauthToken = self.keychainStorage?.get(valueForKey: .oauthToken) else {
+                guard let oauthToken = self.token else {
                     completion?(Result.failure(AuthorizationError.tokenInvalid))
                     return
                 }
@@ -99,9 +99,7 @@ extension AuthorizationService: AuthorizationServiceType {
                     state: Constant.state) { result in
                         switch result {
                         case .success(let response):
-                            self.keychainStorage?.set(value: response.credential.oauthToken, forKey: .oauthToken)
-                            self.keychainStorage?.set(value: response.credential.oauthRefreshToken, forKey: .oauthRefreshToken)
-                            self.keychainStorage?.set(value: "\(response.credential.oauthTokenExpiresAt!.timeIntervalSince1970)", forKey: .tokenExpiresDate)
+                            self.storeCredentials(response.credential)
                             completion?(Result.success(self.addOAuthToken(response.credential.oauthToken, forURLRequest: urlRequest)))
                         case .failure(let error):
                             completion?(Result.failure(AuthorizationError.unhandled(error: error)))
@@ -128,13 +126,10 @@ extension AuthorizationService: AuthorizationServiceType {
             completion?(Result.success(()))
             return
         }
-        
         oauthSwift.renewAccessToken(withRefreshToken: refreshToken) { result in
             switch result {
             case .success(let response):
-                self.keychainStorage?.set(value: response.credential.oauthToken, forKey: .oauthToken)
-                self.keychainStorage?.set(value: response.credential.oauthRefreshToken, forKey: .oauthRefreshToken)
-                self.keychainStorage?.set(value: "\(response.credential.oauthTokenExpiresAt!.timeIntervalSince1970)", forKey: .tokenExpiresDate)
+                self.storeCredentials(response.credential)
                 completion?(Result.success(()))
             case .failure(let error):
                 completion?(Result.failure(AuthorizationError.unhandled(error: error)))
@@ -143,6 +138,12 @@ extension AuthorizationService: AuthorizationServiceType {
     }
     
     // MARK: - Private
+    
+    private func storeCredentials(_ credentials: OAuthSwiftCredential) {
+        keychainStorage?.set(value: credentials.oauthToken, forKey: .oauthToken)
+        keychainStorage?.set(value: credentials.oauthRefreshToken, forKey: .oauthRefreshToken)
+        keychainStorage?.set(value: "\(credentials.oauthTokenExpiresAt!.timeIntervalSince1970)", forKey: .tokenExpiresDate)
+    }
     
     private func addOAuthToken(_ oauthToken: String, forURLRequest urlRequest: URLRequest) -> URLRequest {
         var authorizedUrlRequest = urlRequest
