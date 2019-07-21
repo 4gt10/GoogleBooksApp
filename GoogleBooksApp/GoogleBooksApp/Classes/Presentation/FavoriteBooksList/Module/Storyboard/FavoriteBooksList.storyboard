@@ -10,7 +10,7 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--Empty Data Set Source-->
+        <!--Favorite Books List View Controller-->
         <scene sceneID="RwB-kv-zVW">
             <objects>
                 <viewController storyboardIdentifier="FavoriteBooksListViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="rGT-np-7OK" customClass="FavoriteBooksListViewController" customModule="GoogleBooksApp" customModuleProvider="target" sceneMemberID="viewController">
@@ -88,11 +88,6 @@
                                         </connections>
                                     </tableViewCell>
                                 </prototypes>
-                                <connections>
-                                    <outlet property="dataSource" destination="rGT-np-7OK" id="v2m-sx-DAe"/>
-                                    <outlet property="delegate" destination="rGT-np-7OK" id="1kp-AS-aLw"/>
-                                    <outlet property="emptyDataSetSource" destination="rGT-np-7OK" id="DcC-u1-hJX"/>
-                                </connections>
                             </tableView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>

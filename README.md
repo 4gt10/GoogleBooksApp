@@ -91,3 +91,11 @@ MIT license. See the [LICENSE](https://github.com/ninjaprox/NVActivityIndicatorV
 A drop-in UITableView/UICollectionView superclass category for showing empty datasets whenever the view has no content to display.
 
 MIT license. See the [LICENSE](https://github.com/dzenbot/DZNEmptyDataSet/blob/master/LICENSE) file for details.
+
+## DTTableViewManager
+
+Protocol-oriented UITableView management, powered by generics and associated types.
+
+MIT license. See the [LICENSE]( https://github.com/DenTelezhkin/DTTableViewManager/blob/master/LICENSE) file for details.
+
+

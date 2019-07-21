@@ -5,7 +5,7 @@
 //  Created by Artur Chernov on 08/04/2018.
 //
 
-import Foundation
+import DTModelStorage
 
 final class FavoriteBooksListPresenter {
 
@@ -17,8 +17,6 @@ final class FavoriteBooksListPresenter {
             view.viewIsReady = { [weak self] in
                 self?.view.setupInitialState()
                 self?.addNotificationObservers()
-            }
-            view.getFavoriteBooks = { [weak self] in
                 self?.reloadItems()
             }
             view.removeItemTapped = { [weak self] item in
@@ -26,10 +24,7 @@ final class FavoriteBooksListPresenter {
                 self.interactor.removeFavoriteBook(withId: item.model.id) { result in
                     switch result {
                     case .success:
-                        if let indexOf = self.volumes.firstIndex(where: { $0.id == item.model.id }) {
-                            self.volumes.remove(at: indexOf)
-                            self.updateViewItems()
-                        }
+                        self.removeItem(withId: item.model.id)
                     case .failure(let error):
                         self.router.showAlert(withMessage: error.localizedDescription)
                     }
@@ -41,17 +36,21 @@ final class FavoriteBooksListPresenter {
             view.previewTapped = { [weak self] item in
                 self?.router.openURL(item.previewURL)
             }
+            view.dataSourceIsReady = { [weak self] dataSource in
+                self?.dataSource = dataSource
+            }
         }
     }
     var interactor: FavoriteBooksListInteractorInput!
     var router: FavoriteBooksListRouterInput!
     
-    private var volumes: [Volume] = []
+    private var dataSource: MemoryStorage!
     
     // MARK: - Notification observers
     
     @objc func favoriteBookRemoved(notification: Notification) {
-        reloadItems()
+        guard let id = notification.userInfo?[Notification.Name.Favorite.UserInfoKey.id] as? String else { return }
+        removeItem(withId: id)
     }
     
     // MARK: - Private
@@ -70,16 +69,18 @@ final class FavoriteBooksListPresenter {
             guard let `self` = self else { return }
             switch result {
             case .success(let volumes):
-                self.volumes = volumes
-                self.updateViewItems()
+                self.dataSource.setItems(volumes.map { VolumeViewModel(model: $0, mode: .favoritesList, isFavorite: true) })
             case .failure(let error):
                 self.router.showAlert(withMessage: error.localizedDescription)
             }
         }
     }
     
-    private func updateViewItems() {
-        view.update(withItems: volumes.map { VolumeViewModel(model: $0, isFavorite: true) })
+    private func removeItem(withId id: String) {
+        guard
+            let index = dataSource.items(inSection: 0)?.firstIndex(where: { ($0 as? VolumeViewModel)?.model.id == id }),
+            let item = dataSource.item(at: IndexPath(row: index, section: 0)) as? VolumeViewModel else { return }
+        try? dataSource.removeItem(item)
     }
 }
 

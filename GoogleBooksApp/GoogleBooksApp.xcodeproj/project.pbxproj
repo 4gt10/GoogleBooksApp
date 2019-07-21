@@ -70,6 +70,7 @@
 		AD4CA1524994ECF0A214ABC2 /* BookDetailsPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4049C88A314FA7D387B21486 /* BookDetailsPresenter.swift */; };
 		AEF1AA0A1A62658AF68EA889 /* FavoriteBooksListInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = A28F72DCEA4A9F58D426E6F8 /* FavoriteBooksListInteractor.swift */; };
 		B9286BD0A551AA5AEB0E3211 /* FavoriteBooksListAssemblyContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A8BFBC84789E91FC6A31DA8 /* FavoriteBooksListAssemblyContainer.swift */; };
+		BE0B27BB22E489EA00F1145A /* EmptyStateHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE0B27BA22E489EA00F1145A /* EmptyStateHandler.swift */; };
 		BE1C847DE76DF0243E20B7A2 /* BookDetailsAssemblyContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA49CC3BF4D46E52C359598E /* BookDetailsAssemblyContainer.swift */; };
 		BE7C661122DB58D2009740BC /* APIRequestSpecification.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE7C660E22DB58D2009740BC /* APIRequestSpecification.swift */; };
 		BE7C661222DB58D2009740BC /* OAuthAPIProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE7C661022DB58D2009740BC /* OAuthAPIProvider.swift */; };
@@ -158,6 +159,7 @@
 		AFE9B3E142029AEBBC2FEB71 /* BookDetailsRouter.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = BookDetailsRouter.swift; sourceTree = "<group>"; };
 		B36B841D68C3890202F23F7A /* BookDetails.storyboard */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = file.storyboard; path = BookDetails.storyboard; sourceTree = "<group>"; };
 		B8ACEF040F1F75BB1CDF7C18 /* BooksListInteractor.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = BooksListInteractor.swift; sourceTree = "<group>"; };
+		BE0B27BA22E489EA00F1145A /* EmptyStateHandler.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EmptyStateHandler.swift; sourceTree = "<group>"; };
 		BE7C660E22DB58D2009740BC /* APIRequestSpecification.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = APIRequestSpecification.swift; sourceTree = "<group>"; };
 		BE7C661022DB58D2009740BC /* OAuthAPIProvider.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OAuthAPIProvider.swift; sourceTree = "<group>"; };
 		BE7C661322DB6253009740BC /* OAuthAPIProviderAssemblyContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OAuthAPIProviderAssemblyContainer.swift; sourceTree = "<group>"; };
@@ -606,6 +608,7 @@
 			children = (
 				92B8D260207A2296004B82C8 /* View */,
 				92B8D257207A2171004B82C8 /* Router */,
+				BE0B27BA22E489EA00F1145A /* EmptyStateHandler.swift */,
 			);
 			path = Common;
 			sourceTree = "<group>";
@@ -887,6 +890,8 @@
 			inputPaths = (
 				"${PODS_ROOT}/Target Support Files/Pods-GoogleBooksApp/Pods-GoogleBooksApp-frameworks.sh",
 				"${BUILT_PRODUCTS_DIR}/Alamofire/Alamofire.framework",
+				"${BUILT_PRODUCTS_DIR}/DTModelStorage/DTModelStorage.framework",
+				"${BUILT_PRODUCTS_DIR}/DTTableViewManager/DTTableViewManager.framework",
 				"${BUILT_PRODUCTS_DIR}/DZNEmptyDataSet/DZNEmptyDataSet.framework",
 				"${BUILT_PRODUCTS_DIR}/DataSources/DataSources.framework",
 				"${BUILT_PRODUCTS_DIR}/KeychainSwift/KeychainSwift.framework",
@@ -903,6 +908,8 @@
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Alamofire.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/DTModelStorage.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/DTTableViewManager.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/DZNEmptyDataSet.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/DataSources.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/KeychainSwift.framework",
@@ -984,6 +991,7 @@
 				12B8E428903EA71952A71BF0 /* FavoriteBooksListInteractorInput.swift in Sources */,
 				AEF1AA0A1A62658AF68EA889 /* FavoriteBooksListInteractor.swift in Sources */,
 				1C4258582DB6F6CA48B676AF /* FavoriteBooksListRouterInput.swift in Sources */,
+				BE0B27BB22E489EA00F1145A /* EmptyStateHandler.swift in Sources */,
 				F49474CB594B8EF4EC3933A0 /* FavoriteBooksListRouter.swift in Sources */,
 				BE1C847DE76DF0243E20B7A2 /* BookDetailsAssemblyContainer.swift in Sources */,
 				BE7C661122DB58D2009740BC /* APIRequestSpecification.swift in Sources */,

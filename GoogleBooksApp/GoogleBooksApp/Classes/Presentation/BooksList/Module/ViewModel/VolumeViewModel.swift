@@ -11,6 +11,11 @@ import DataSources
 
 struct VolumeViewModel {
     
+    enum Mode {
+        
+        case list, favoritesList
+    }
+    
     let model: Volume
     
     private let id: String
@@ -19,9 +24,10 @@ struct VolumeViewModel {
     let authors: String?
     let description: String?
     let previewURL: URL?
+    let mode: Mode
     var isFavorite: Bool
     
-    init(model: Volume, isFavorite: Bool) {
+    init(model: Volume, mode: Mode, isFavorite: Bool) {
         self.model = model
         
         self.id = model.id
@@ -30,6 +36,7 @@ struct VolumeViewModel {
         self.authors = model.volumeInfo.authors?.joined(separator: ", ")
         self.description = model.volumeInfo.description
         self.previewURL = model.volumeInfo.previewLinkURL
+        self.mode = mode
         self.isFavorite = isFavorite
     }
 }

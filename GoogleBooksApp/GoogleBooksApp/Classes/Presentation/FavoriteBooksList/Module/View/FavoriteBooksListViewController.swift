@@ -5,36 +5,64 @@
 //  Created by Artur Chernov on 08/04/2018.
 //
 
-import UIKit
-import DataSources
-import DZNEmptyDataSet
+import DTTableViewManager
+import DTModelStorage
 
-final class FavoriteBooksListViewController: UIViewController, FavoriteBooksListViewInput {
+final class FavoriteBooksListViewController: UIViewController, FavoriteBooksListViewInput, DTTableViewManageable {
+    
+    private enum Constant {
+        
+        static let emptyStateTitle = R.string.localizable.favoriteBooksListEmptyStateTitle()
+        static let deleteItemTitle = R.string.localizable.favoriteBooksListDeleteActionTitle()
+    }
 
     @IBOutlet weak var tableView: UITableView!
     
-    private lazy var dataSource: SectionDataController<VolumeViewModel, TableViewAdapter> = SectionDataController(adapter: .init(tableView: tableView))
+    private let emptyState = EmptyStateHandler(title: Constant.emptyStateTitle)
     
     // MARK: - View out
 
     var output: FavoriteBooksListModuleInput?
     var viewIsReady: (() -> Void)?
-    var getFavoriteBooks: (() -> Void)?
     var removeItemTapped: ((_ item: VolumeViewModel) -> Void)?
     var itemSelected: ((_ item: VolumeViewModel) -> Void)?
-    var previewTapped: ((_ item: VolumeViewModel) -> Void)? 
+    var previewTapped: ((_ item: VolumeViewModel) -> Void)?
+    var dataSourceIsReady: ((_ dataSource: MemoryStorage) -> Void)?
 
     // MARK: - View in
 
     func setupInitialState() {
-        tableView.estimatedRowHeight = VolumeCell.Constant.defaultHeight
-        tableView.rowHeight = UITableView.automaticDimension
-        
-        getFavoriteBooks?()
-    }
-    
-    func update(withItems items: [VolumeViewModel]) {
-        dataSource.update(items: items, updateMode: .everything) { }
+        manager.startManaging(withDelegate: self)
+        manager.configureEvents(for: VolumeCell.self) { cellType, modelType in
+            manager.register(cellType)
+            manager.heightForCell(withItem: modelType) { _, _ in return UITableView.automaticDimension }
+            manager.estimatedHeightForCell(withItem: modelType) { _, _ in return cellType.defaultHeight }
+            manager.configure(cellType) { [weak self] cell, model, _ in
+                cell.previewTappedClosure = {
+                    self?.previewTapped?(model)
+                }
+            }
+            manager.canEditCell(withItem: modelType) { _, _ -> Bool in
+                return true
+            }
+            manager.commitEditingStyle(for: cellType) { [weak self] editingStyle, _, model, _ in
+                switch editingStyle {
+                case .delete: self?.removeItemTapped?(model)
+                default: break
+                }
+            }
+            manager.titleForDeleteConfirmationButton(in: cellType) { _, _, _ -> String? in
+                return Constant.deleteItemTitle
+            }
+            manager.didSelect(cellType) { [weak self] _, model, indexPath in
+                self?.itemSelected?(model)
+                self?.tableView.deselectRow(at: indexPath, animated: true)
+            }
+        }
+        if let dataSource = manager.storage as? MemoryStorage {
+            dataSourceIsReady?(dataSource)
+        }
+        emptyState.configure(withScrollableView: tableView)
     }
 
 	// MARK: - Life cycle
@@ -43,60 +71,4 @@ final class FavoriteBooksListViewController: UIViewController, FavoriteBooksList
 		super.viewDidLoad()
 		viewIsReady?()
 	}
-}
-
-// MARK: - UITableViewDataSource
-
-extension FavoriteBooksListViewController: UITableViewDataSource {
-    
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return dataSource.numberOfItems()
-    }
-    
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: R.reuseIdentifier.volumeCell, for: indexPath)!
-        let model = dataSource.item(at: indexPath)!
-        cell.configure(
-            withMode: .favoritesList,
-            model: model,
-            favoriteTappedClosure: nil,
-            previewTappedClosure: { [weak self] in
-                self?.previewTapped?(model)
-            }
-        )
-        return cell
-    }
-}
-
-// MARK: - UITableViewDelegate
-
-extension FavoriteBooksListViewController: UITableViewDelegate {
-    
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        itemSelected?(dataSource.item(at: indexPath)!)
-        tableView.deselectRow(at: indexPath, animated: true)
-    }
-    
-    func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
-        return true
-    }
-    
-    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
-        if (editingStyle == .delete) {
-            removeItemTapped?(dataSource.item(at: indexPath)!)
-        }
-    }
-    
-    func tableView(_ tableView: UITableView, titleForDeleteConfirmationButtonForRowAt indexPath: IndexPath) -> String? {
-        return R.string.localizable.favoriteBooksListDeleteActionTitle()
-    }
-}
-
-// MARK: - DZNEmptyDataSetSource
-
-extension FavoriteBooksListViewController: DZNEmptyDataSetSource {
-    
-    func title(forEmptyDataSet scrollView: UIScrollView!) -> NSAttributedString! {
-        return NSAttributedString(string: R.string.localizable.favoriteBooksListEmptyStateTitle())
-    }
 }

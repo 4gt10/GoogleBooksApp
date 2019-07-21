@@ -114,8 +114,6 @@
                                     </tableViewCell>
                                 </prototypes>
                                 <connections>
-                                    <outlet property="dataSource" destination="rGT-np-7OK" id="Okz-fj-Arh"/>
-                                    <outlet property="delegate" destination="rGT-np-7OK" id="uHs-NX-Ilo"/>
                                     <outlet property="emptyDataSetSource" destination="rGT-np-7OK" id="MsV-24-1B0"/>
                                 </connections>
                             </tableView>

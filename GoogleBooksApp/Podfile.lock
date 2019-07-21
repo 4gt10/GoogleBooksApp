@@ -3,6 +3,11 @@ PODS:
   - DataSources (0.8.0):
     - DataSources/Default (= 0.8.0)
   - DataSources/Default (0.8.0)
+  - DTModelStorage (7.4.1):
+    - DTModelStorage/Core (= 7.4.1)
+  - DTModelStorage/Core (7.4.1)
+  - DTTableViewManager (6.6.0):
+    - DTModelStorage (~> 7.4.0)
   - DZNEmptyDataSet (1.8.1)
   - KeychainSwift (16.0.1)
   - Kingfisher (5.7.0)
@@ -26,6 +31,7 @@ PODS:
 
 DEPENDENCIES:
   - DataSources (~> 0.8.0)
+  - DTTableViewManager (~> 6.6.0)
   - DZNEmptyDataSet (~> 1.8.1)
   - KeychainSwift (~> 16.0.1)
   - Kingfisher (~> 5.7.0)
@@ -41,6 +47,8 @@ SPEC REPOS:
   https://github.com/cocoapods/specs.git:
     - Alamofire
     - DataSources
+    - DTModelStorage
+    - DTTableViewManager
     - DZNEmptyDataSet
     - KeychainSwift
     - Kingfisher
@@ -69,6 +77,8 @@ CHECKOUT OPTIONS:
 SPEC CHECKSUMS:
   Alamofire: ae5c501addb7afdbb13687d7f2f722c78734c2d3
   DataSources: b21404b22dfb0816a9f6bda0f36f1803f9d0a978
+  DTModelStorage: 558e0c60bdc0bb5d37ec8f04772f29641183ddb9
+  DTTableViewManager: df3c7fa735d1b8baac3e547d90f5b02221eda72e
   DZNEmptyDataSet: 9525833b9e68ac21c30253e1d3d7076cc828eaa7
   KeychainSwift: 4209611373ca4a098e09b1e547eebd87c544dcc4
   Kingfisher: c7d211b54f1f30d8060aadab177d52b4349c825b
@@ -82,6 +92,6 @@ SPEC CHECKSUMS:
   Swinject: cf7458774b1b00323080a9c67e47a1ee7f9d2af1
   SwinjectStoryboard: 688f096033103e66ffcf6ca678211acd7d7be505
 
-PODFILE CHECKSUM: 9578aaced8fc5ed45a3722960cdbc06d1899f86c
+PODFILE CHECKSUM: 4c209e9242827bb004215724580dfeb5951f8b3c
 
 COCOAPODS: 1.7.4

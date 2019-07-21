@@ -5,16 +5,20 @@
 //  Created by Artur Chernov on 07/04/2018.
 //
 
-import UIKit
-import DataSources
-import DZNEmptyDataSet
+import DTTableViewManager
+import DTModelStorage
 
-final class BooksListViewController: UIViewController, BooksListViewInput {
+final class BooksListViewController: UIViewController, BooksListViewInput, DTTableViewManageable {
+    
+    private enum Constant {
+        
+        static let emptyStateTitle = R.string.localizable.booksListEmptyStateTitle()
+    }
     
     @IBOutlet weak var searchBar: UISearchBar!
     @IBOutlet weak var tableView: UITableView!
     
-    private lazy var dataSource: SectionDataController<VolumeViewModel, TableViewAdapter> = .init(adapter: .init(tableView: tableView))
+    private let emptyState = EmptyStateHandler(title: Constant.emptyStateTitle)
     
     // MARK: - View out
     
@@ -25,16 +29,33 @@ final class BooksListViewController: UIViewController, BooksListViewInput {
     var favoritesTapped: (() -> Void)?
     var favoriteTapped: ((_ item: VolumeViewModel, _ completion: @escaping () -> Void) -> Void)?
     var previewTapped: ((_ item: VolumeViewModel) -> Void)?
+    var dataSourceIsReady: ((_ dataSource: MemoryStorage) -> Void)?
     
     // MARK: - View in
     
     func setupInitialState() {
-        tableView.estimatedRowHeight = VolumeCell.Constant.defaultHeight
-        tableView.rowHeight = UITableView.automaticDimension
-    }
-    
-    func update(withItems items: [VolumeViewModel]) {
-        dataSource.update(items: items, updateMode: .everything) { }
+        manager.startManaging(withDelegate: self)
+        manager.configureEvents(for: VolumeCell.self) { cellType, modelType in
+            manager.register(cellType)
+            manager.heightForCell(withItem: modelType) { _, _ in return UITableView.automaticDimension }
+            manager.estimatedHeightForCell(withItem: modelType) { _, _ in return cellType.defaultHeight }
+            manager.configure(cellType) { [weak self] cell, model, _ in
+                cell.favoriteTappedClosure = { completion in
+                    self?.favoriteTapped?(model, completion)
+                }
+                cell.previewTappedClosure = {
+                    self?.previewTapped?(model)
+                }
+            }
+            manager.didSelect(cellType) { [weak self] _, model, indexPath in
+                self?.itemSelected?(model)
+                self?.tableView.deselectRow(at: indexPath, animated: true)
+            }
+        }
+        if let dataSource = manager.storage as? MemoryStorage {
+            dataSourceIsReady?(dataSource)
+        }
+        emptyState.configure(withScrollableView: tableView)
     }
     
 	// MARK: - Life cycle
@@ -58,49 +79,5 @@ extension BooksListViewController: UISearchBarDelegate {
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
         view.endEditing(true)
         searchBooks?(searchBar.text ?? "")
-    }
-}
-
-// MARK: - UITableViewDataSource
-
-extension BooksListViewController: UITableViewDataSource {
-    
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return dataSource.numberOfItems()
-    }
-    
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: R.reuseIdentifier.volumeCell, for: indexPath)!
-        let model = dataSource.item(at: indexPath)!
-        cell.configure(
-            withMode: .list,
-            model: model,
-            favoriteTappedClosure: { [weak self] completion in
-                self?.favoriteTapped?(model, completion)
-            },
-            previewTappedClosure: { [weak self] in
-                self?.previewTapped?(model)
-            }
-        )
-        return cell
-    }
-}
-
-// MARK: - UITableViewDelegate
-
-extension BooksListViewController: UITableViewDelegate {
-    
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        itemSelected?(dataSource.item(at: indexPath)!)
-        tableView.deselectRow(at: indexPath, animated: true)
-    }
-}
-
-// MARK: - DZNEmptyDataSetSource
-
-extension BooksListViewController: DZNEmptyDataSetSource {
-    
-    func title(forEmptyDataSet scrollView: UIScrollView!) -> NSAttributedString! {
-        return NSAttributedString(string: R.string.localizable.booksListEmptyStateTitle())
     }
 }

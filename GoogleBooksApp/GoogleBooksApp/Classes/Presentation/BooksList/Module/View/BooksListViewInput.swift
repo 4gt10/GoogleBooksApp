@@ -5,6 +5,8 @@
 //  Created by Artur Chernov on 07/04/2018.
 //
 
+import DTModelStorage
+
 protocol BooksListViewInput: class, ActivityIndicatorRenderer {
 
     // MARK: - View out
@@ -16,9 +18,9 @@ protocol BooksListViewInput: class, ActivityIndicatorRenderer {
     var favoritesTapped: (() -> Void)? { get set }
     var favoriteTapped: ((_ item: VolumeViewModel, _ completion: @escaping () -> Void) -> Void)? { get set }
     var previewTapped: ((_ item: VolumeViewModel) -> Void)? { get set }
+    var dataSourceIsReady: ((_ dataSource: MemoryStorage) -> Void)? { get set }
     
     // MARK: - View in
     
     func setupInitialState()
-    func update(withItems: [VolumeViewModel])
 }

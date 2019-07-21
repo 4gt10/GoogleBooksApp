@@ -5,7 +5,7 @@
 //  Created by Artur Chernov on 07/04/2018.
 //
 
-import Foundation
+import DTModelStorage
 
 final class BooksListPresenter {
 
@@ -32,8 +32,8 @@ final class BooksListPresenter {
                 self.interactor.manageFavoriteBook(withId: item.model.id) { result in
                     completion()
                     switch result {
-                    case .success(_):
-                        self.updateViewItems()
+                    case .success:
+                        self.reloadItem(withId: item.model.id)
                     case .failure(let error):
                         self.router.showAlert(withMessage: error.localizedDescription)
                     }
@@ -42,12 +42,15 @@ final class BooksListPresenter {
             view.previewTapped = { [weak self] item in
                 self?.router.openURL(item.previewURL)
             }
+            view.dataSourceIsReady = { [weak self] dataSource in
+                self?.dataSource = dataSource
+            }
         }
     }
     var interactor: BooksListInteractorInput!
     var router: BooksListRouterInput!
     
-    private var volumes: [Volume] = []
+    private var dataSource: MemoryStorage!
     
     deinit {
         NotificationCenter.default.removeObserver(self)
@@ -56,11 +59,13 @@ final class BooksListPresenter {
     // MARK: - Notification observers
     
     @objc func favoriteBookAdded(notification: Notification) {
-        updateViewItems()
+        guard let id = notification.userInfo?[Notification.Name.Favorite.UserInfoKey.id] as? String else { return }
+        reloadItem(withId: id)
     }
     
     @objc func favoriteBookRemoved(notification: Notification) {
-        updateViewItems()
+        guard let id = notification.userInfo?[Notification.Name.Favorite.UserInfoKey.id] as? String else { return }
+        reloadItem(withId: id)
     }
     
     // MARK: - Private
@@ -85,16 +90,23 @@ final class BooksListPresenter {
             guard let `self` = self else { return }
             switch result {
             case .success(let volumes):
-                self.volumes = volumes
-                self.updateViewItems()
+                self.dataSource.setItems(volumes.map { VolumeViewModel(
+                    model: $0,
+                    mode: .list,
+                    isFavorite: self.interactor.isBookFavorite(bookId: $0.id)) }
+                )
             case .failure(let error):
                 self.router.showAlert(withMessage: error.localizedDescription)
             }
         }
     }
     
-    private func updateViewItems() {
-        view.update(withItems: volumes.map { VolumeViewModel(model: $0, isFavorite: interactor.isBookFavorite(bookId: $0.id)) })
+    private func reloadItem(withId id: String) {
+        guard
+            let index = dataSource.items(inSection: 0)?.firstIndex(where: { ($0 as? VolumeViewModel)?.model.id == id }),
+            var item = dataSource.item(at: IndexPath(row: index, section: 0)) as? VolumeViewModel else { return }
+        item.isFavorite = interactor.isBookFavorite(bookId: id)
+        try? dataSource.replaceItem(item, with: item)
     }
 }
 
