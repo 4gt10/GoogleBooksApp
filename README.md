@@ -1,6 +1,6 @@
 # GoogleBooksApp
 
-Simple iOS client for Google Books API.
+Simple iOS client for [Google Books API](https://developers.google.com/books).
 
 # How to Use
 
@@ -10,7 +10,7 @@ This application uses [CocoaPods](https://cocoapods.org) for dependency manageme
 
 # Architecture
 
-This application uses [VIPER](https://github.com/strongself/The-Book-of-VIPER) architecture.
+This application uses [Rambler implementation of VIPER architecture](https://github.com/strongself/The-Book-of-VIPER)
 
 # iOS Versions Support
 
