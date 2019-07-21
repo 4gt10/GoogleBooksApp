@@ -10,7 +10,7 @@ This application uses [CocoaPods](https://cocoapods.org) for dependency manageme
 
 # Architecture
 
-This application uses [Rambler implementation of VIPER architecture](https://github.com/strongself/The-Book-of-VIPER)
+This application uses [Rambler implementation of VIPER architecture](https://github.com/strongself/The-Book-of-VIPER).
 
 # iOS Versions Support
 
