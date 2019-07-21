@@ -31,7 +31,7 @@ extension AuthorizationError: Error {
 
 protocol AuthorizationServiceType {
     
-    func authorize(completion: ((Result<Void, AuthorizationError>) -> Void)?)
+    func authorize(urlRequest: URLRequest, completion: ((Result<URLRequest, AuthorizationError>) -> Void)?)
     func renewToken(completion: ((Result<Void, AuthorizationError>) -> Void)?)
 }
 
@@ -77,19 +77,22 @@ final class AuthorizationService {
 
 extension AuthorizationService: AuthorizationServiceType {
     
-    func authorize(completion: ((Result<Void, AuthorizationError>) -> Void)?) {
+    func authorize(urlRequest: URLRequest, completion: ((Result<URLRequest, AuthorizationError>) -> Void)?) {
         renewToken { [weak self] result in
             guard let `self` = self else { return }
             switch result {
             case .success:
-                completion?(Result.success(()))
+                guard let oauthToken = self.keychainStorage?.get(valueForKey: .oauthToken) else {
+                    completion?(Result.failure(AuthorizationError.tokenInvalid))
+                    return
+                }
+                completion?(Result.success(self.addOAuthToken(oauthToken, forURLRequest: urlRequest)))
             case .failure(let error):
                 guard let visibleViewController = UIWindow.visibleViewController() else {
                     completion?(Result.failure(AuthorizationError.unhandled(error: error)))
                     return
                 }
                 self.oauthSwift.authorizeURLHandler = SafariURLHandler(viewController: visibleViewController, oauthSwift: self.oauthSwift)
-                
                 self.oauthSwift.authorize(
                     withCallbackURL: AppConfiguration.oauthCallbackURL,
                     scope: Constant.scope,
@@ -99,7 +102,7 @@ extension AuthorizationService: AuthorizationServiceType {
                             self.keychainStorage?.set(value: response.credential.oauthToken, forKey: .oauthToken)
                             self.keychainStorage?.set(value: response.credential.oauthRefreshToken, forKey: .oauthRefreshToken)
                             self.keychainStorage?.set(value: "\(response.credential.oauthTokenExpiresAt!.timeIntervalSince1970)", forKey: .tokenExpiresDate)
-                            completion?(Result.success(()))
+                            completion?(Result.success(self.addOAuthToken(response.credential.oauthToken, forURLRequest: urlRequest)))
                         case .failure(let error):
                             completion?(Result.failure(AuthorizationError.unhandled(error: error)))
                         }
@@ -137,5 +140,16 @@ extension AuthorizationService: AuthorizationServiceType {
                 completion?(Result.failure(AuthorizationError.unhandled(error: error)))
             }
         }
+    }
+    
+    // MARK: - Private
+    
+    private func addOAuthToken(_ oauthToken: String, forURLRequest urlRequest: URLRequest) -> URLRequest {
+        var authorizedUrlRequest = urlRequest
+        authorizedUrlRequest.addValue(
+            "Bearer \(oauthToken)",
+            forHTTPHeaderField: "Authorization"
+        )
+        return authorizedUrlRequest
     }
 }

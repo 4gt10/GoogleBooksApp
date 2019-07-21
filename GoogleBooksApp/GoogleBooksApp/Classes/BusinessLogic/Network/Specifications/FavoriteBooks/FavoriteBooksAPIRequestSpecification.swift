@@ -15,10 +15,14 @@ enum FavoriteBooksAPIRequestSpecification {
     case removeFavoriteBook(id: String)
 }
 
-extension FavoriteBooksAPIRequestSpecification: OAuthAPIRequestSpecification {
+extension FavoriteBooksAPIRequestSpecification: APIRequestSpecification {
     
     var baseURL: URL {
         return URL(string: "\(AppConfiguration.APIURL)mylibrary/bookshelves/0")!
+    }
+    
+    var requiresAuthorization: Bool {
+        return true
     }
     
     var path: String {

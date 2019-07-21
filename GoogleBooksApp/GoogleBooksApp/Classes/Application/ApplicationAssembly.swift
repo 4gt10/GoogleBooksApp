@@ -15,7 +15,7 @@ final class ApplicationAssembly {
             FavoriteBooksStorageAssemblyContainer(),
             
             // Network
-            APIProviderAssembly(),
+            OAuthAPIProviderAssemblyContainer(),
             
             // Services
             AuthorizationServiceAssemblyContainer(),

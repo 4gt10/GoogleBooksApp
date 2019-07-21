@@ -29,31 +29,23 @@ protocol BooksListServiceType {
 
 final class BooksListService {
     
-    private let requestSender: RequestSender
-    private let authorizationService: AuthorizationServiceType?
+    private let apiProvider: OAuthAPIProvider?
     
     // MARK: - Init
     
-    init(requestSender: RequestSender, authorizationService: AuthorizationServiceType?) {
-        self.requestSender = requestSender
-        self.authorizationService = authorizationService
+    init(apiProvider: OAuthAPIProvider?) {
+        self.apiProvider = apiProvider
     }
 }
 
 extension BooksListService: BooksListServiceType {
     
     func searchBooks(query: String, completion: @escaping (Result<[Volume], BooksListServiceError>) -> Void) {
-        authorizationService?.authorize { [weak self] result in
+        apiProvider?.sendRequest(
+            requestSpecification: BooksListAPIRequestSpecification.searchBooks(query: query)) { (result: Result<VolumesList, APIError>) in
             switch result {
-            case .success:
-                self?.requestSender.sendRequest(requestSpecification: BooksListAPIRequestSpecification.searchBooks(query: query)) { (result: Result<VolumesList, APIError>) in
-                    switch result {
-                    case .success(let volumesList): completion(Result.success(volumesList.items ?? []))
-                    case .failure(let error): completion(Result.failure(BooksListServiceError.unhandled(error: error)))
-                    }
-                }
-            case .failure(let error):
-                completion(Result.failure(BooksListServiceError.unhandled(error: error)))
+            case .success(let volumesList): completion(Result.success(volumesList.items ?? []))
+            case .failure(let error): completion(Result.failure(BooksListServiceError.unhandled(error: error)))
             }
         }
     }

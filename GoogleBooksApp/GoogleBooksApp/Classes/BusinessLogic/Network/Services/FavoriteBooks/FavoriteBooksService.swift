@@ -31,64 +31,43 @@ protocol FavoriteBooksServiceType {
 
 final class FavoriteBooksService {
     
-    private let requestSender: RequestSender
-    private let authorizationService: AuthorizationServiceType?
+    private let apiProvider: OAuthAPIProvider?
     
     // MARK: - Init
     
-    init(requestSender: RequestSender, authorizationService: AuthorizationServiceType?) {
-        self.requestSender = requestSender
-        self.authorizationService = authorizationService
+    init(apiProvider: OAuthAPIProvider?) {
+        self.apiProvider = apiProvider
     }
 }
 
 extension FavoriteBooksService: FavoriteBooksServiceType {
 
     func getFavoriteBooks(completion: @escaping (Result<[Volume], FavoriteBooksServiceError>) -> Void) {
-        authorizationService?.authorize { [weak self] result in
+        apiProvider?.sendRequest(
+            requestSpecification: FavoriteBooksAPIRequestSpecification.favoriteBooksList) { (result: Result<VolumesList, APIError>) in
             switch result {
-            case .success:
-                self?.requestSender.sendRequest(requestSpecification: FavoriteBooksAPIRequestSpecification.favoriteBooksList) { (result: Result<VolumesList, APIError>) in
-                    switch result {
-                    case .success(let volumesList): completion(Result.success(volumesList.items ?? []))
-                    case .failure(let error): completion(Result.failure(FavoriteBooksServiceError.unhandled(error: error)))
-                    }
-                }
-            case .failure(let error):
-                completion(Result.failure(FavoriteBooksServiceError.unhandled(error: error)))
+            case .success(let volumesList): completion(Result.success(volumesList.items ?? []))
+            case .failure(let error): completion(Result.failure(FavoriteBooksServiceError.unhandled(error: error)))
             }
         }
-        
     }
     
     func addFavoriteBook(withId id: String, completion: @escaping (Result<Void, FavoriteBooksServiceError>) -> Void) {
-        authorizationService?.authorize { [weak self] result in
+        apiProvider?.sendRequest(
+            requestSpecification: FavoriteBooksAPIRequestSpecification.addFavoriteBook(id: id)) { (result: Result<Void, APIError>) in
             switch result {
-            case .success:
-                self?.requestSender.sendRequest(requestSpecification: FavoriteBooksAPIRequestSpecification.addFavoriteBook(id: id)) { (result: Result<Void, APIError>) in
-                    switch result {
-                    case .success: completion(Result.success(()))
-                    case .failure(let error): completion(Result.failure(FavoriteBooksServiceError.unhandled(error: error)))
-                    }
-                }
-            case .failure(let error):
-                completion(Result.failure(FavoriteBooksServiceError.unhandled(error: error)))
+            case .success: completion(Result.success(()))
+            case .failure(let error): completion(Result.failure(FavoriteBooksServiceError.unhandled(error: error)))
             }
         }
     }
     
     func removeFavoriteBook(withId id: String, completion: @escaping (Result<Void, FavoriteBooksServiceError>) -> Void) {
-        authorizationService?.authorize { [weak self] result in
+        apiProvider?.sendRequest(
+            requestSpecification: FavoriteBooksAPIRequestSpecification.removeFavoriteBook(id: id)) { (result: Result<Void, APIError>) in
             switch result {
-            case .success:
-                self?.requestSender.sendRequest(requestSpecification: FavoriteBooksAPIRequestSpecification.removeFavoriteBook(id: id)) { (result: Result<Void, APIError>) in
-                    switch result {
-                    case .success: completion(Result.success(()))
-                    case .failure(let error): completion(Result.failure(FavoriteBooksServiceError.unhandled(error: error)))
-                    }
-                }
-            case .failure(let error):
-                completion(Result.failure(FavoriteBooksServiceError.unhandled(error: error)))
+            case .success: completion(Result.success(()))
+            case .failure(let error): completion(Result.failure(FavoriteBooksServiceError.unhandled(error: error)))
             }
         }
     }

@@ -13,7 +13,15 @@ enum BooksListAPIRequestSpecification {
     case searchBooks(query: String)
 }
 
-extension BooksListAPIRequestSpecification: OAuthAPIRequestSpecification {
+extension BooksListAPIRequestSpecification: APIRequestSpecification {
+    
+    var requiresAuthorization: Bool {
+        return true
+    }
+    
+    var baseURL: URL {
+         return URL(string: AppConfiguration.APIURL)!
+    }
     
     var path: String {
         switch self {

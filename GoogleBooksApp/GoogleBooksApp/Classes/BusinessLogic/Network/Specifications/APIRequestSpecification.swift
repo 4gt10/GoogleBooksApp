@@ -2,29 +2,20 @@
 //  APIRequestSpecification.swift
 //
 
-import Foundation
 import Moya
 
-protocol APIRequestSpecification: TargetType {
+public protocol APIRequestSpecification: TargetType {
     
-    var defaultHeaders: [String: String] { get }
+    var requiresAuthorization: Bool { get }
 }
 
-extension APIRequestSpecification {
-    
-    var baseURL: URL {
-        return URL(string: AppConfiguration.APIURL)!
-    }
-    
-    var headers: [String: String]? {
-        return nil
-    }
+public extension APIRequestSpecification {
     
     var sampleData: Data {
         return Data()
     }
     
-    var defaultHeaders: [String: String] {
-        return [:]
+    var headers: [String: String]? {
+        return nil
     }
 }

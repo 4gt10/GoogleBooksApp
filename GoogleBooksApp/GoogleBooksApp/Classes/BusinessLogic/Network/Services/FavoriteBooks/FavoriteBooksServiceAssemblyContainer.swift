@@ -13,10 +13,7 @@ final class FavoriteBooksServiceAssemblyContainer: Assembly {
     
     func assemble(container: Container) {
         container.register(FavoriteBooksServiceType.self) { r in
-            let provider = r.resolve(MoyaProvider<MultiTarget>.self)
-            let requestSender = APIRequestSender(provider: provider)
-            let authorizationService = r.resolve(AuthorizationServiceType.self)
-            return FavoriteBooksService(requestSender: requestSender, authorizationService: authorizationService)
+            return FavoriteBooksService(apiProvider: r.resolve(OAuthAPIProvider.self))
         }
     }
 }
