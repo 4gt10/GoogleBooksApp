@@ -7,16 +7,15 @@
 //
 
 import UIKit
-import OAuthSwift
+import PluggableAppDelegate
 
 @UIApplicationMain
-class AppDelegate: UIResponder, UIApplicationDelegate {
+final class AppDelegate: PluggableApplicationDelegate {
 
-    var window: UIWindow?
-    
-    func application(_ app: UIApplication, open url: URL, options: [UIApplication.OpenURLOptionsKey : Any] = [:]) -> Bool {
-        OAuthSwift.handle(url: url)
-        return true
+    override var services: [ApplicationService] {
+        return [
+            URLHandlableApplicationService()
+        ]
     }
 }
 

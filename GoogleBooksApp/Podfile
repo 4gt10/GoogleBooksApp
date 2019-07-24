@@ -13,6 +13,7 @@ target 'GoogleBooksApp' do
     pod 'Kingfisher', '~> 5.7.0'
     pod 'DZNEmptyDataSet', '~> 1.8.1'
     pod 'DTTableViewManager', '~> 6.6.0'
+    pod 'PluggableAppDelegate', '~> 1.3.0'
     
     pod 'LightRoute', :git => 'https://github.com/SpectralDragon/LightRoute.git'
     pod 'SwinjectStoryboard', :git => 'https://github.com/mdyson/SwinjectStoryboard.git'

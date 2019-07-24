@@ -72,6 +72,7 @@
 		B9286BD0A551AA5AEB0E3211 /* FavoriteBooksListAssemblyContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A8BFBC84789E91FC6A31DA8 /* FavoriteBooksListAssemblyContainer.swift */; };
 		BE0B27BB22E489EA00F1145A /* EmptyStateHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE0B27BA22E489EA00F1145A /* EmptyStateHandler.swift */; };
 		BE1C847DE76DF0243E20B7A2 /* BookDetailsAssemblyContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA49CC3BF4D46E52C359598E /* BookDetailsAssemblyContainer.swift */; };
+		BE650BC622E82BF40096E1BF /* URLHandlableApplicationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE650BC522E82BF40096E1BF /* URLHandlableApplicationService.swift */; };
 		BE7C661122DB58D2009740BC /* APIRequestSpecification.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE7C660E22DB58D2009740BC /* APIRequestSpecification.swift */; };
 		BE7C661222DB58D2009740BC /* OAuthAPIProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE7C661022DB58D2009740BC /* OAuthAPIProvider.swift */; };
 		BE7C661422DB6253009740BC /* OAuthAPIProviderAssemblyContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE7C661322DB6253009740BC /* OAuthAPIProviderAssemblyContainer.swift */; };
@@ -160,6 +161,7 @@
 		B36B841D68C3890202F23F7A /* BookDetails.storyboard */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = file.storyboard; path = BookDetails.storyboard; sourceTree = "<group>"; };
 		B8ACEF040F1F75BB1CDF7C18 /* BooksListInteractor.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = BooksListInteractor.swift; sourceTree = "<group>"; };
 		BE0B27BA22E489EA00F1145A /* EmptyStateHandler.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EmptyStateHandler.swift; sourceTree = "<group>"; };
+		BE650BC522E82BF40096E1BF /* URLHandlableApplicationService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = URLHandlableApplicationService.swift; sourceTree = "<group>"; };
 		BE7C660E22DB58D2009740BC /* APIRequestSpecification.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = APIRequestSpecification.swift; sourceTree = "<group>"; };
 		BE7C661022DB58D2009740BC /* OAuthAPIProvider.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OAuthAPIProvider.swift; sourceTree = "<group>"; };
 		BE7C661322DB6253009740BC /* OAuthAPIProviderAssemblyContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OAuthAPIProviderAssemblyContainer.swift; sourceTree = "<group>"; };
@@ -400,6 +402,7 @@
 		92235AA72078CB4A0090AF36 /* Application */ = {
 			isa = PBXGroup;
 			children = (
+				BE650BC222E82BBE0096E1BF /* Services */,
 				923C61312078C3020026D1C7 /* AppDelegate.swift */,
 				92235AA82078CBA60090AF36 /* ApplicationAssembly.swift */,
 			);
@@ -709,6 +712,14 @@
 			path = Interactor;
 			sourceTree = "<group>";
 		};
+		BE650BC222E82BBE0096E1BF /* Services */ = {
+			isa = PBXGroup;
+			children = (
+				BE650BC522E82BF40096E1BF /* URLHandlableApplicationService.swift */,
+			);
+			path = Services;
+			sourceTree = "<group>";
+		};
 		BE7C660F22DB58D2009740BC /* APIProvider */ = {
 			isa = PBXGroup;
 			children = (
@@ -899,6 +910,7 @@
 				"${BUILT_PRODUCTS_DIR}/Moya/Moya.framework",
 				"${BUILT_PRODUCTS_DIR}/NVActivityIndicatorView/NVActivityIndicatorView.framework",
 				"${BUILT_PRODUCTS_DIR}/OAuthSwift/OAuthSwift.framework",
+				"${BUILT_PRODUCTS_DIR}/PluggableAppDelegate/PluggableAppDelegate.framework",
 				"${BUILT_PRODUCTS_DIR}/R.swift.Library/Rswift.framework",
 				"${BUILT_PRODUCTS_DIR}/Result/Result.framework",
 				"${BUILT_PRODUCTS_DIR}/Swinject/Swinject.framework",
@@ -916,6 +928,7 @@
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Moya.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/NVActivityIndicatorView.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/OAuthSwift.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/PluggableAppDelegate.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Rswift.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Result.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Swinject.framework",
@@ -939,6 +952,7 @@
 				92235AA92078CBA70090AF36 /* ApplicationAssembly.swift in Sources */,
 				92235B082078F4620090AF36 /* BooksListServiceAssemblyContainer.swift in Sources */,
 				92B8D22D2079FCAB004B82C8 /* FavoriteBooksAPIRequestSpecification.swift in Sources */,
+				BE650BC622E82BF40096E1BF /* URLHandlableApplicationService.swift in Sources */,
 				92B8D25E207A2171004B82C8 /* URLRoutable.swift in Sources */,
 				F0A8BC2F63158CEED5E03DFF /* BooksListAssemblyContainer.swift in Sources */,
 				5A11A7E714D89CC5F016DF89 /* BooksListViewInput.swift in Sources */,

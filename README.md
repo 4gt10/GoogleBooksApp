@@ -92,4 +92,10 @@ Protocol-oriented UITableView management, powered by generics and associated typ
 
 MIT license. See the [LICENSE]( https://github.com/DenTelezhkin/DTTableViewManager/blob/master/LICENSE) file for details.
 
+## PluggableAppDelegate
+
+A lightweight service-oriented AppDelegate for iOS, made in Swift.
+
+MIT license. See the [LICENSE]( https://github.com/pchelnikov/PluggableAppDelegate/blob/master/LICENSE) file for details.
+
 
