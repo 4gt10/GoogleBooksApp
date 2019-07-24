@@ -10,7 +10,6 @@ target 'GoogleBooksApp' do
     pod 'Swinject', '~> 2.6.2'
     pod 'Moya', '~> 13.0.1'
     pod 'NVActivityIndicatorView', '~> 4.7.0'
-    pod 'DataSources', '~> 0.8.0'
     pod 'Kingfisher', '~> 5.7.0'
     pod 'DZNEmptyDataSet', '~> 1.8.1'
     pod 'DTTableViewManager', '~> 6.6.0'

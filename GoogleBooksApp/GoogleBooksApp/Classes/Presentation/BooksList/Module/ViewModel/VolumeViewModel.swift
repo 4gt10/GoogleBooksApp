@@ -7,7 +7,6 @@
 //
 
 import Foundation
-import DataSources
 
 struct VolumeViewModel {
     
@@ -41,14 +40,9 @@ struct VolumeViewModel {
     }
 }
 
-extension VolumeViewModel: Diffable {
-    
-    var diffIdentifier: AnyHashable { return id }
-}
-
 extension VolumeViewModel: Equatable {
     
     static func==(lhs: VolumeViewModel, rhs: VolumeViewModel) -> Bool {
-        return lhs.diffIdentifier == rhs.diffIdentifier
+        return lhs.id == rhs.id
     }
 }

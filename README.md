@@ -74,12 +74,6 @@ NVActivityIndicatorView is a collection of awesome loading animations.
 
 MIT license. See the [LICENSE](https://github.com/ninjaprox/NVActivityIndicatorView/blob/master/LICENSE) file for details.
 
-## DataSources
-
-Type-safe data-driven CollectionView, TableView Framework.
-
-MIT license. See the [LICENSE](https://github.com/muukii/DataSources/blob/master/LICENSE) file for details.
-
 ## Kingfisher
 
 Kingfisher is a lightweight, pure-Swift library for downloading and caching images from the web.
