@@ -78,7 +78,7 @@ MIT license. See the [LICENSE](https://github.com/ninjaprox/NVActivityIndicatorV
 
 Kingfisher is a lightweight, pure-Swift library for downloading and caching images from the web.
 
-MIT license. See the [LICENSE](https://github.com/ninjaprox/NVActivityIndicatorView/blob/master/LICENSE) file for details.
+MIT license. See the [LICENSE](https://github.com/ninjaprox/Kingfisher/blob/master/LICENSE) file for details.
 
 ## DZNEmptyDataSet
 
