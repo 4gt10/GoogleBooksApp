@@ -143,7 +143,7 @@ open class ViewModelMapping
 
 @available(*, deprecated, message: "ViewModelMappingCustomizing protocol is deprecated and will be removed in future versions. Please switch to using mapping conditions instead.")
 /// Adopt this protocol on your `DTTableViewManageable` or `DTCollectionViewManageable` instance to be able to select mapping from available candidates.
-public protocol ViewModelMappingCustomizing : class {
+public protocol ViewModelMappingCustomizing : AnyObject {
     
     /// Select `ViewModelMapping` from candidates or return your own mapping
     /// - Parameter candidates: mapping candidates, that were found for this model

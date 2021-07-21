@@ -8,7 +8,7 @@
 import Foundation
 import Result
 
-protocol BooksListInteractorInput: class {
+protocol BooksListInteractorInput: AnyObject {
 
     func searchBooks(query: String, completion: @escaping (Result<[Volume], BooksListBusinessError>) -> Void)
     func manageFavoriteBook(withId id: String, completion: @escaping (Result<Void, BooksListBusinessError>) -> Void)

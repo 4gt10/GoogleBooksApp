@@ -25,7 +25,7 @@
 //
 
 /// This protocol describe that source controller should be have container for embed segue transition.
-public protocol ViewContainerForEmbedSegue: class {
+public protocol ViewContainerForEmbedSegue: AnyObject {
 
     ///
     /// The method of container view for embed segue.
