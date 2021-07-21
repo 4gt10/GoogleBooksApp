@@ -7,7 +7,7 @@
 
 import DTModelStorage
 
-protocol BooksListViewInput: class, ActivityIndicatorRenderer {
+protocol BooksListViewInput: AnyObject, ActivityIndicatorRenderer {
 
     // MARK: - View out
     

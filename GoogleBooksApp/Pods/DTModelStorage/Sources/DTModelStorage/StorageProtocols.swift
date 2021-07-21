@@ -27,7 +27,7 @@ import Foundation
 import UIKit
 
 /// `Storage` protocol is used to define common interface for storage classes.
-public protocol Storage : class
+public protocol Storage : AnyObject
 {
     /// Array of sections, conforming to `Section` protocol.
     var sections: [Section] { get }
@@ -40,14 +40,14 @@ public protocol Storage : class
 }
 
 /// `SupplementaryStorage` protocol defines interface for storages, that can hold supplementary objects(like header and footer models).
-public protocol SupplementaryStorage : class
+public protocol SupplementaryStorage : AnyObject
 {
     /// Returns supplementary model of `kind` for section at `indexPath`.
     func supplementaryModel(ofKind kind: String, forSectionAt indexPath: IndexPath) -> Any?
 }
 
 /// `HeaderFooterStorage` protocol defines interface for storages, that can hold header and footer objects of specific supplementary type(for example like UICollectionElementKindSectionHeader)
-public protocol HeaderFooterStorage : class
+public protocol HeaderFooterStorage : AnyObject
 {
     /// Returns header model for section with section `index` or nil if not found.
     func headerModel(forSection index: Int) -> Any?
@@ -101,7 +101,7 @@ extension HeaderFooterSettable {
 }
 
 /// `StorageUpdating` protocol is used to transfer data storage updates.
-public protocol StorageUpdating : class
+public protocol StorageUpdating : AnyObject
 {
     /// Transfers data storage updates. 
     ///

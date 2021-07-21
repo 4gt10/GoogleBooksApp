@@ -28,7 +28,7 @@ open class OAuthSwiftOpenURLExternally: OAuthSwiftURLHandlerType {
     @objc open func handle(_ url: URL) {
         #if os(iOS) || os(tvOS)
             #if !OAUTH_APP_EXTENSIONS
-                UIApplication.shared.openURL(url)
+                UIApplication.shared.canOpenURL(url)
             #endif
         #elseif os(watchOS)
         // WATCHOS: not implemented
@@ -74,7 +74,7 @@ import AuthenticationServices
 
     @available(iOS 11.0, *)
     open class SFAuthenticationURLHandler: OAuthSwiftURLHandlerType {
-        var webAuthSession: SFAuthenticationSession!
+        var webAuthSession: ASWebAuthenticationSession!
         let callbackUrlScheme: String
 
         init(callbackUrlScheme: String) {
@@ -82,7 +82,7 @@ import AuthenticationServices
         }
 
         public func handle(_ url: URL) {
-            webAuthSession = SFAuthenticationSession(url: url,
+            webAuthSession = ASWebAuthenticationSession(url: url,
                                                      callbackURLScheme: callbackUrlScheme,
                                                      completionHandler: { callback, error in
                                                         guard error == nil, let successURL = callback else {

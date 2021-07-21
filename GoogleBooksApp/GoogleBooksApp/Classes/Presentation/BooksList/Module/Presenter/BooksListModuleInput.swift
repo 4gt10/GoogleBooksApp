@@ -5,6 +5,6 @@
 //  Created by Artur Chernov on 07/04/2018.
 //
 
-protocol BooksListModuleInput: class {
+protocol BooksListModuleInput: AnyObject {
 
 }
