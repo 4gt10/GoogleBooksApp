@@ -1,6 +1,10 @@
 # GoogleBooksApp
 
-Simple iOS client for [Google Books API](https://developers.google.com/books).
+iOS client for [Google Books API](https://developers.google.com/books).
+
+<p align="left">
+  <img src="https://github.com/4gt10/GoogleBooksApp/blob/master/sample.gif" alt="animated" />
+</p>
 
 # How to Use
 
